@@ -1,42 +1,24 @@
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# TypeScript
-*.tsbuildinfo
-
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Build
-/dist
-/build
-/out
+node_modules
+dist
+dist-ssr
+*.local
 
-# React Native
-android/app/build/
-ios/Pods/
-ios/build/
-*.xcworkspace
-*.xcodeproj
-*.xcuserdata
-*.swp
-*.lock
-
-# VSCode
-.vscode/
-
-# IDEs
-.idea/
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-*.sublime-workspace
-*.sublime-project
-
-# OS files
-Thumbs.db
-ehthumbs.db
-
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
