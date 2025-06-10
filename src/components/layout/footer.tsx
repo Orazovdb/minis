@@ -2,14 +2,17 @@ import clsx from "clsx";
 import type { FC } from "react";
 import { socials } from "../../lib/constantas";
 import { Link } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
 
 interface Props {
   className?: string;
 }
 
 export const Footer: FC<Props> = ({ className }) => {
+  useGSAP(() => {}, { dependencies: [], scope: "" });
+
   return (
-    <footer className={clsx("bg-[#222123] pb-[1.56vw]", className)}>
+    <footer className={clsx("bg-[#222123] pb-[1.56vw] w-full", className)}>
       <div className="w-full h-[33vh] -mt-[0.3vw] z-10 ">
         <img
           src="/shapes/footer-shape.svg"
@@ -18,11 +21,12 @@ export const Footer: FC<Props> = ({ className }) => {
       </div>
 
       <div className="flex items-center gap-[0.72vw] justify-center mt-[3.333vw]">
-        {socials.map((item) => (
+        {socials.map((item, i) => (
           <Link
+            key={i}
             to={item.link}
             target="_blank"
-            className="size-[3.75vw] rounded-full p-[1.09vw] border border-[#FAEADE]/20"
+            className="size-[3.75vw] hover:bg-white/10 transition-all rounded-full p-[1.09vw] border border-[#FAEADE]/20"
           >
             <img
               src={item.icon}
@@ -65,8 +69,12 @@ export const Footer: FC<Props> = ({ className }) => {
           <h4>Copyright © 2025 Mini’s - All Rights Reserved</h4>
 
           <div className="flex items-center gap-[1.25vw]">
-            <a href="">Privacy Policy</a>
-            <a href="">Terms of Sеrvice</a>
+            <a href="" className="hover:opacity-60 transition-opacity">
+              Privacy Policy
+            </a>
+            <a href="" className="hover:opacity-60 transition-opacity">
+              Terms of Sеrvice
+            </a>
           </div>
         </div>
       </div>

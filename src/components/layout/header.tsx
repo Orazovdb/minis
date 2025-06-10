@@ -8,9 +8,9 @@ interface Props {
 
 export const Header: FC<Props> = ({ className }) => {
   return (
-    <div
+    <header
       className={clsx(
-        "fixed top-0 left-0 flex z-50 items-center justify-between px-[2vw] py-[1vw] w-full",
+        "fixed top-0 flex z-50 items-center justify-between px-[2vw] py-[1vw] w-full",
         className
       )}
     >
@@ -19,6 +19,6 @@ export const Header: FC<Props> = ({ className }) => {
       <Burger />
 
       <div />
-    </div>
+    </header>
   );
 };

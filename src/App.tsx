@@ -1,20 +1,19 @@
 import { Outlet } from "react-router-dom";
-import { Footer, Header, SmoothScroll } from "./components/layout";
+import { Footer, Header, Loader } from "./components/layout";
+import ReactLenis from "lenis/react";
 
 function App() {
   return (
-    <SmoothScroll
-      className="flex flex-col min-h-screen bg-light-bg"
-      data-scroll-container
-    >
+    <ReactLenis root>
+      <Loader />
       <Header />
 
-      <main className="flex-auto flex flex-col gap-40">
+      <main className="flex-auto overflow-hidden">
         <Outlet />
       </main>
 
       <Footer />
-    </SmoothScroll>
+    </ReactLenis>
   );
 }
 

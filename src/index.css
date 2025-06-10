@@ -12,7 +12,7 @@
   --color-dark-brown: #7f3b2d;
 
   --color-white-text: #faeade;
-  --color-light-bronw-text: #faeade;
+  --color-light-brown-text: #faeade;
 
   --color-light-bg: #faeade;
   --color-black-bg: #222123;
@@ -21,13 +21,6 @@
 /* Скрываем скроллбар Locomotive */
 .c-scrollbar .c-scrollbar_thumb {
   background-color: white !important;
-}
-
-/* Отключаем нативный скролл */
-html,
-body {
-  overflow: hidden !important;
-  overscroll-behavior: none;
 }
 
 :root {
@@ -45,9 +38,89 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Отключение нативного скроллбара */
-
 /* Кастомизация скроллбара Locomotive */
+html.has-scroll-smooth {
+  overflow: hidden;
+}
+
+html.has-scroll-dragging {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.has-scroll-smooth body {
+  overflow: hidden;
+}
+
+.has-scroll-smooth [data-scroll-container] {
+  min-height: 100vh;
+}
+
+[data-scroll-direction="horizontal"] [data-scroll-container] {
+  height: 100vh;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+[data-scroll-direction="horizontal"] [data-scroll-section] {
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  height: 100%;
+}
+
+.c-scrollbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 11px;
+  height: 100%;
+  transform-origin: center right;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0;
+}
+.c-scrollbar:hover {
+  transform: scaleX(1.45);
+}
+.c-scrollbar:hover,
+.has-scroll-scrolling .c-scrollbar,
+.has-scroll-dragging .c-scrollbar {
+  opacity: 1;
+}
+[data-scroll-direction="horizontal"] .c-scrollbar {
+  width: 100%;
+  height: 10px;
+  top: auto;
+  bottom: 0;
+  transform: scaleY(1);
+}
+[data-scroll-direction="horizontal"] .c-scrollbar:hover {
+  transform: scaleY(1.3);
+}
+
+.c-scrollbar_thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.5;
+  width: 7px;
+  border-radius: 10px;
+  margin: 2px;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.has-scroll-dragging .c-scrollbar_thumb {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+[data-scroll-direction="horizontal"] .c-scrollbar_thumb {
+  right: auto;
+  bottom: 0;
+}
+
 a {
   font-weight: 500;
   color: inherit;
@@ -55,30 +128,7 @@ a {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background-color: #faeade;
 }
 
 @layer utilities {
@@ -95,6 +145,38 @@ button:focus-visible {
 
   .words h1 {
     @apply leading-[100%];
+  }
+
+  .track {
+    @apply -tracking-[0.4vw];
+  }
+
+  .line2 {
+    @apply mb-[5vw];
+  }
+
+  .text-light-brown-block {
+    @apply bg-light-brown w-fit -tracking-[0.4vw] text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
+  }
+
+  .text-dark-brown-block {
+    @apply bg-dark-brown w-fit -tracking-[0.4vw] text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
+  }
+
+  .pos-y {
+    @apply absolute top-1/2 -translate-y-1/2;
+  }
+
+  .pos-x {
+    @apply absolute left-1/2 -translate-x-1/2;
+  }
+
+  .slogan-section h2 {
+    @apply pb-[1vw] leading-[120%] px-[5vw] whitespace-nowrap overflow-hidden;
+  }
+
+  .btn {
+    @apply rounded-full px-[3vw] tracking-tight text-[1vw] py-[1vw] bg-[#E3A458] text-[#523122] uppercase;
   }
 }
 
