@@ -140,7 +140,7 @@ body {
   }
 
   .text-16 {
-    @apply text-[0.83vw] leading-[110%];
+    @apply md:text-[0.83vw] text-[2vw] leading-[110%];
   }
 
   .words h1 {
@@ -152,15 +152,19 @@ body {
   }
 
   .line2 {
-    @apply mb-[5vw];
+    @apply md:mb-[5vw];
+  }
+
+  .line4 {
+    @apply md:mb-0 mb-[15vw];
   }
 
   .text-light-brown-block {
-    @apply bg-light-brown w-fit -tracking-[0.4vw] text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
+    @apply bg-light-brown w-fit -tracking-[0.4vw] text-[13vw] md:text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
   }
 
   .text-dark-brown-block {
-    @apply bg-dark-brown w-fit -tracking-[0.4vw] text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
+    @apply bg-dark-brown w-fit -tracking-[0.4vw] text-[13vw] md:text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
   }
 
   .pos-y {
@@ -176,7 +180,7 @@ body {
   }
 
   .btn {
-    @apply rounded-full px-[3vw] tracking-tight text-[1vw] py-[1vw] bg-[#E3A458] text-[#523122] uppercase;
+    @apply rounded-full transition-all hover:bg-black-bg md:px-[3vw] px-[5vw] duration-300 hover:-translate-y-1 ease-in-out hover:text-light-brown-text tracking-tight text-[5vw] md:text-[1vw] md:py-[1vw] py-[2vw] bg-[#E3A458] cursor-pointer inline-block text-[#523122] uppercase;
   }
 }
 

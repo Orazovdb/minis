@@ -35,23 +35,5 @@ export default function About() {
     { scope: container }
   );
 
-  return (
-    <div
-      ref={container}
-      className="block text-[10vw] overflow-hidden text-black-bg px-[4vw]"
-    >
-      <h2 ref={text} className="name uppercase">
-        BATYR NAME NAME NAME <br /> batyr NAME NAME NAME ASDSAD BATYR NAME NAME
-        NAME <br /> batyr NAME NAME NAME ASDSAD BATYR NAME NAME NAME <br />
-        batyr NAME NAME NAME ASDSAD BATYR NAME NAME NAME <br /> batyr NAME NAME
-        NAME ASDSAD BATYR NAME NAME NAME <br /> batyr NAME NAME NAME ASDSAD
-        BATYR NAME NAME NAME <br /> batyr NAME NAME NAME ASDSAD BATYR NAME NAME
-        NAME <br /> batyr NAME NAME NAME ASDSAD BATYR NAME NAME NAME <br />
-        batyr NAME NAME NAME ASDSAD BATYR NAME NAME NAME <br /> batyr NAME NAME
-        NAME ASDSAD BATYR NAME NAME NAME <br /> batyr NAME NAME NAME ASDSAD
-        BATYR NAME NAME NAME <br /> batyr NAME NAME NAME ASDSAD BATYR NAME NAME
-        NAME <br /> batyr NAME NAME NAME ASDSAD
-      </h2>
-    </div>
-  );
+  return <section></section>;
 }

@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Error } from "./components/layout";
-import { Home, About } from "./pages";
+import { Home, About, Product } from "./pages";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +19,11 @@ export const router = createBrowserRouter([
       {
         element: <About />,
         path: "about",
+        errorElement: <Error />,
+      },
+      {
+        element: <Product />,
+        path: "product/:id",
         errorElement: <Error />,
       },
     ],

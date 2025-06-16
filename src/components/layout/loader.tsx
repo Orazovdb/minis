@@ -3,6 +3,7 @@ import clsx from "clsx";
 import gsap from "gsap";
 import { useRef, useState, useEffect } from "react";
 import { useLoaderStore } from "../../store/use-loader";
+import { useLenis } from "lenis/react";
 
 export const Loader = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -11,11 +12,30 @@ export const Loader = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const setLoading = useLoaderStore((state) => state.setLoading);
+  const lenis = useLenis();
 
+  // Блокировка скролла при монтировании
   useEffect(() => {
-    document.body.classList.add("overflow-hidden");
-    return () => document.body.classList.remove("overflow-hidden");
-  }, []);
+    if (!lenis) return;
+
+    // Блокируем скролл
+    lenis.stop();
+
+    // Автоматическая разблокировка через 2 секунды на случай ошибок
+    const safetyTimeout = setTimeout(() => {
+      if (lenis.isStopped) {
+        lenis.start();
+      }
+    }, 3000);
+
+    return () => {
+      clearTimeout(safetyTimeout);
+      // Разблокируем при размонтировании
+      if (lenis.isStopped) {
+        lenis.start();
+      }
+    };
+  }, [lenis]);
 
   useGSAP(() => {
     const progressInterval = setInterval(() => {
@@ -41,12 +61,20 @@ export const Loader = () => {
             ease: "power2.in",
             onComplete: () => {
               setIsVisible(false);
-              setLoading(false); // Устанавливаем состояние загрузки в false
+              setLoading(false);
+
+              // Гарантированная разблокировка через 100мс
+              setTimeout(() => {
+                if (lenis?.isStopped) {
+                  lenis.start();
+                }
+              }, 100);
             },
           });
         },
       });
-    }, 2000);
+    }, 2000); // Увеличил время до 2000мс для надежности
+
     return () => {
       clearInterval(progressInterval);
       clearTimeout(hideTimeout);
@@ -69,13 +97,16 @@ export const Loader = () => {
     <div
       ref={loaderRef}
       className={clsx(
-        "loader overflow-hidden duration-500 flex flex-col items-center justify-center h-screen z-[100] transition-all bg-dark-brown w-full fixed top-0 left-0 right-0 bottom-0"
+        "loader fixed margin-0 overflow-hidden duration-500 flex flex-col items-center justify-center h-screen z-[100] transition-all bg-dark-brown w-full top-0 left-0 right-0 bottom-0"
       )}
     >
-      <img src="/logo.svg" alt="Logo" className="mb-8 size-[20vw] md:w-64" />
+      <img
+        src="/logo.svg"
+        alt="Logo"
+        className="mb-8 md:size-[15vw] size-[30vw]"
+      />
 
-      {/* Прогресс-бар */}
-      <div className="w-[30vw] h-[1vw] rounded-full overflow-hidden">
+      <div className="md:w-[15vw] w-[40vw] md:h-[0.5vw] h-[1.5vw] rounded-full overflow-hidden">
         <div
           ref={progressBarRef}
           className="h-full bg-light-brown-text rounded-full"
@@ -83,8 +114,7 @@ export const Loader = () => {
         />
       </div>
 
-      {/* Индикатор процентов */}
-      <div className="mt-4 text-ligbg-light-brown-text text-[5vw]">
+      <div className="mt-4 text-ligbg-light-brown-text text-[5vw] md:text-[2vw]">
         {progress}%
       </div>
     </div>

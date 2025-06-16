@@ -1,12 +1,16 @@
+// store/use-loader.ts
 import { create } from "zustand";
 
-interface Store {
-  loading: boolean;
-  setLoading: (val: boolean) => void;
+interface LoaderState {
+  isLoading: boolean;
+  initialLoadComplete: boolean;
+  setLoading: (isLoading: boolean) => void;
+  completeInitialLoad: () => void;
 }
 
-export const useLoaderStore = create<Store>()((set) => ({
-  loading: true,
-  setLoading: (val: boolean) =>
-    set((state) => ({ loading: (state.loading = val) })),
+export const useLoaderStore = create<LoaderState>((set) => ({
+  isLoading: true,
+  initialLoadComplete: false,
+  setLoading: (isLoading) => set({ isLoading }),
+  completeInitialLoad: () => set({ initialLoadComplete: true }),
 }));

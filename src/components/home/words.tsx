@@ -51,10 +51,10 @@ export const Words: FC = () => {
             ease: "circ",
             scrollTrigger: {
               trigger: minisTextRef.current,
-              start: "top 90%", // Начинаем когда элемент на 80% высоты экрана
+              start: "top 90%",
               end: "bottom 50%",
               scrub: true,
-              invalidateOnRefresh: true, // Важно для пересчета при изменении размера
+              invalidateOnRefresh: true,
             },
             willChange: "transform, opacity",
           }
@@ -69,7 +69,7 @@ export const Words: FC = () => {
       ref={containerRef}
       className="bg-dark-brown relative section py-[8vw]"
     >
-      <h2 className="text-white words text-[10vw] uppercase leading-[105%] track text-center">
+      <h2 className="text-white words md:text-[10vw] text-[20vw] uppercase leading-[105%] track text-center">
         Shu yere gowja
         <br />
         Moshny gowja soz
@@ -79,13 +79,12 @@ export const Words: FC = () => {
         birzat bolmaly tapyndaa
       </h2>
 
-      <div className="pos-x pos-y">
-        {/* Контейнер для анимации */}
+      <div className="pos-x md:top-[25vw] top-[90vw]">
         <div
           ref={minisTextRef}
           className="minis-text z-50 rotate-[4deg] origin-center overflow-hidden"
         >
-          <div className="text-light-brown-block !text-dark-brown border-dark-brown border-[1vw] px-[4vw] py-[1vw] inline-block">
+          <div className="text-light-brown-block md:!text-[9vw] !text-[20vw] !text-dark-brown border-dark-brown border-[2vw] md:border-[1vw] px-[4vw] py-[1vw] inline-block">
             Mini's
           </div>
         </div>

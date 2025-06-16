@@ -2,31 +2,28 @@ import clsx from "clsx";
 import type { FC } from "react";
 import { socials } from "../../lib/constantas";
 import { Link } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
 
 interface Props {
   className?: string;
 }
 
 export const Footer: FC<Props> = ({ className }) => {
-  useGSAP(() => {}, { dependencies: [], scope: "" });
-
   return (
     <footer className={clsx("bg-[#222123] pb-[1.56vw] w-full", className)}>
-      <div className="w-full h-[33vh] -mt-[0.3vw] z-10 ">
+      <div className="w-full z-10 flex items-start justify-start">
         <img
           src="/shapes/footer-shape.svg"
-          className="size-full object-contain"
+          className="size-full object-cover"
         />
       </div>
 
-      <div className="flex items-center gap-[0.72vw] justify-center mt-[3.333vw]">
+      <div className="flex items-center md:gap-[0.72vw] gap-[2vw] justify-center mt-[3.333vw]">
         {socials.map((item, i) => (
           <Link
             key={i}
             to={item.link}
             target="_blank"
-            className="size-[3.75vw] hover:bg-white/10 transition-all rounded-full p-[1.09vw] border border-[#FAEADE]/20"
+            className="md:size-[3.75vw] size-[9vw] hover:bg-white/10 transition-all rounded-full p-[2vw] md:p-[1.09vw] border border-[#FAEADE]/20"
           >
             <img
               src={item.icon}
@@ -38,12 +35,12 @@ export const Footer: FC<Props> = ({ className }) => {
       </div>
 
       <div className="px-[3.333vw] mt-[3.333vw]">
-        <div className="flex justify-between mb-[8.33vw] text-[#FAEADE]">
-          <div className="flex gap-[3.33vw] flex-[0_0_26vw] justify-end">
+        <div className="flex justify-between items-end mb-[8.33vw] text-[#FAEADE]">
+          <div className="flex flex-col md:flex-row gap-[3.33vw] md:flex-[0_0_26vw] flex-[0_0_40vw] justify-end">
             <img
               src="/logo.svg"
               alt="logo"
-              className="h-[2vw] w-auto object-contain"
+              className="md:h-[2vw] h-[10vw] object-left w-auto object-contain"
             />
             <p className="text-16 proxima">
               We'd love to hear from you. Get in touch with us, and our friendly
@@ -53,14 +50,14 @@ export const Footer: FC<Props> = ({ className }) => {
             </p>
           </div>
 
-          <div className="flex-[0_0_20vw]">
+          <div className="md:flex-[0_0_20vw] flex-[0_0_30vw]">
             <address className="text-16 proxima mb-[2.24vw]">
               Address: Jaý 8, k.Telekeçi, etrap Ak bugdaý, Anew, Türkmenistan
             </address>
             <input
               type="text"
               placeholder="Enter your email"
-              className="border-b placeholder:text-[1.56vw] h-[3.4vw] w-full"
+              className="border-b md:text-[1.56vw] md:placeholder:text-[1.56vw] placeholder:text-[3vw] text-[3vw] focus:outline-0 md:h-[3.4vw] h-[8vw] w-full"
             />
           </div>
         </div>

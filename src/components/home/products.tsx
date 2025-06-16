@@ -3,6 +3,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useRef, type FC } from "react";
+import { Link } from "react-router-dom";
+import { useMediaQuery } from "usehooks-ts";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -10,6 +12,8 @@ export const Products: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
+
+  const md = useMediaQuery("(min-width: 768px)");
 
   useGSAP(
     () => {
@@ -24,15 +28,14 @@ export const Products: FC = () => {
         });
 
         gsap.from(chars, {
-          y: 100,
+          y: 300,
           stagger: 0.1,
           duration: 0.4,
           scrollTrigger: {
-            trigger: horizontalRef.current,
+            trigger: md ? horizontalRef.current : textRef.current,
             start: "top 90%",
-            end: "bottom 60%",
+            end: "bottom 50%",
             scrub: 1,
-            markers: false,
           },
         });
       });
@@ -66,12 +69,6 @@ export const Products: FC = () => {
             scrub: 1,
             pin: true,
             anticipatePin: 1,
-            snap: {
-              snapTo: [0, 1],
-              duration: { min: 0.2, max: 0.5 },
-              delay: 0.1,
-              ease: "power1.inOut",
-            },
             onEnter: () => gsap.set(horizontalRef.current, { x: 0 }),
             onLeaveBack: () => gsap.set(horizontalRef.current, { x: 0 }),
           },
@@ -82,38 +79,39 @@ export const Products: FC = () => {
   );
 
   return (
-    <section ref={containerRef} className="relative h-[110vh] overflow-hidden ">
+    <section ref={containerRef} className="relative overflow-hidden">
       <div
-        ref={horizontalRef}
-        className="horizontal flex gap-[10vw] items-center w-[200vw]  will-change-transform"
+        id="mobile-products"
+        ref={md ? horizontalRef : null}
+        className="md:horizontal flex flex-col md:flex-row gap-[10vw] items-center px-[5vw] md:w-[200vw] will-change-transform"
       >
         <h2
           ref={textRef}
-          className="whitespace-nowrap text-center text-[7vw] uppercase text-[#553124] track"
+          className="whitespace-nowrap text-center md:text-[7vw] text-[15vw] uppercase text-[#553124] track"
         >
           Bizde 6
           <br />
           GORNUSH BAR
         </h2>
 
-        <div className="minis-text inline-block text-light-brown-block overflow-hidden leading-none !pb-[1vw] border-[0.4vw] z-50 text-light-brown-block -rotate-[6deg] !px-[3vw] !text-[6vw] absolute top-[17vw] left-[12vw]">
+        <div className="minis-text inline-block text-light-brown-block md:overflow-hidden leading-none !pb-[1vw] border-[0.4vw] z-50 text-light-brown-block -rotate-[6deg] !px-[3vw] md:!text-[6vw] absolute top-[17vw] left-[33vw] md:left-[12vw]">
           Mini’s
         </div>
 
         {[...Array(3)].map((_, i) => (
-          <img
-            key={i}
-            src={`/products/product-${1}.png`}
-            alt=""
-            className="w-auto h-[40vw] object-cover flex-shrink-0"
-          />
+          <a href={`/product/${i + 1}`}>
+            <img
+              key={i}
+              src={`/products/product-${1}.png`}
+              alt=""
+              className="w-auto h-[80vw] md:h-[40vw] object-cover flex-shrink-0"
+            />
+          </a>
         ))}
       </div>
 
-      <div className="flex justify-center px-[5vw]">
-        <button className="bottom-[5vw] left-1/2 transform -translate-x-1/2 btn">
-          See All
-        </button>
+      <div className="flex justify-center w-full mx-auto md:py-[5vw] py-[15vw]">
+        <button className="btn">See All</button>
       </div>
     </section>
   );
