@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Footer, Header, Loader } from "./components/layout";
 import ReactLenis, { useLenis } from "lenis/react";
 import { useEffect } from "react";
+import { Burger } from "./components/shared";
 
 function App() {
   const lenis = useLenis();
@@ -19,6 +20,7 @@ function App() {
       }}
     >
       <div>
+        <Burger />
         <Loader />
         <Header />
 

@@ -14,14 +14,11 @@ export const Loader = () => {
   const setLoading = useLoaderStore((state) => state.setLoading);
   const lenis = useLenis();
 
-  // Блокировка скролла при монтировании
   useEffect(() => {
     if (!lenis) return;
 
-    // Блокируем скролл
     lenis.stop();
 
-    // Автоматическая разблокировка через 2 секунды на случай ошибок
     const safetyTimeout = setTimeout(() => {
       if (lenis.isStopped) {
         lenis.start();
@@ -30,7 +27,6 @@ export const Loader = () => {
 
     return () => {
       clearTimeout(safetyTimeout);
-      // Разблокируем при размонтировании
       if (lenis.isStopped) {
         lenis.start();
       }
@@ -63,7 +59,6 @@ export const Loader = () => {
               setIsVisible(false);
               setLoading(false);
 
-              // Гарантированная разблокировка через 100мс
               setTimeout(() => {
                 if (lenis?.isStopped) {
                   lenis.start();
@@ -73,7 +68,7 @@ export const Loader = () => {
           });
         },
       });
-    }, 2000); // Увеличил время до 2000мс для надежности
+    }, 2000);
 
     return () => {
       clearInterval(progressInterval);

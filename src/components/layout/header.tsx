@@ -1,33 +1,19 @@
 import clsx from "clsx";
 import type { FC } from "react";
-import { Burger } from "../shared";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { Link } from "react-router-dom";
+import { useBurgerStore } from "../../store/use-burger";
 
 interface Props {
   className?: string;
 }
 
 export const Header: FC<Props> = ({ className }) => {
-  useGSAP(() => {
-    gsap.set("#header", {
-      y: "-100%",
-      opacity: 0,
-    });
-    gsap.to("#header", {
-      y: 0,
-      opacity: 1,
-      ease: "circ",
-      delay: 2.2,
-    });
-  }, {});
+  const { isOpen, setIsOpen } = useBurgerStore((state) => state);
 
   return (
     <header
       id="header"
       className={clsx(
-        "fixed top-0 flex z-50 items-center justify-between px-[2vw] py-[1vw] w-full",
+        "fixed top-0 flex z-[70] items-center justify-between px-[2vw] py-[1vw] w-full",
         className
       )}
     >
@@ -39,13 +25,27 @@ export const Header: FC<Props> = ({ className }) => {
         />
       </a>
 
-      <Burger />
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className={clsx(
+          "md:h-[2.08vw] h-[6.24vw] relative transition-all md:w-[3.64vw] z-[100] w-[10.92vw] flex flex-col justify-center items-center gap-[0.4vw] cursor-pointer px-4 overflow-hidden"
+        )}
+      >
+        <span
+          className={clsx(
+            "md:w-[3.02vw] w-[7vw] md:h-[0.1vw] h-[0.4vw] bg-amber-950 transition-all duration-300 ease-initial",
+            isOpen && "rotate-45"
+          )}
+        />
+        <span
+          className={clsx(
+            "md:w-[3.02vw] w-[7vw] md:h-[0.1vw] h-[0.4vw] bg-amber-950 transition-all duration-300 ease-initial",
+            isOpen && "-rotate-45"
+          )}
+        />
+      </div>
 
-      <a href="/about" className="uppercase text-[1vw] !text-black-bg">
-        about
-      </a>
-
-      {/* <div className="md:block hidden" /> */}
+      <div className="md:block hidden" />
     </header>
   );
 };
