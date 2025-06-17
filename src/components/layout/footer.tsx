@@ -9,7 +9,10 @@ interface Props {
 
 export const Footer: FC<Props> = ({ className }) => {
   return (
-    <footer className={clsx("bg-[#222123] pb-[1.56vw] w-full", className)}>
+    <footer
+      id="footer"
+      className={clsx("bg-[#222123] pb-[1.56vw] w-full", className)}
+    >
       <div className="w-full z-10 flex items-start justify-start">
         <img
           src="/shapes/footer-shape.svg"

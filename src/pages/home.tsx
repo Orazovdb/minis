@@ -1,5 +1,12 @@
 import { useEffect } from "react";
-import { Catalog, Hero, Products, Slogan, Words } from "../components/home";
+import {
+  Catalog,
+  Hero,
+  More,
+  Products,
+  Slogan,
+  Words,
+} from "../components/home";
 
 export default function Home() {
   useEffect(() => {
@@ -10,9 +17,7 @@ export default function Home() {
       <Hero />
       <Words />
       <Products />
-      <div className="bg-[url('/background.png')] bg-no-repeat bg-cover h-[150vh] w-full">
-        <div className=""></div>
-      </div>
+      <More />
       <Slogan />
       <Catalog />
     </div>

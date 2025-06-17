@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useRef, type FC } from "react";
-import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -17,27 +16,24 @@ export const Products: FC = () => {
 
   useGSAP(
     () => {
-      document.fonts.ready.then(() => {
-        if (!textRef.current) return;
+      const { chars } = new SplitText(textRef.current, {
+        type: "chars, lines",
+        charsClass: "char++",
+        linesClass: "product-line++",
+        mask: "lines",
+      });
 
-        const { chars } = new SplitText(textRef.current, {
-          type: "chars, lines",
-          charsClass: "char++",
-          linesClass: "product-line++",
-          mask: "lines",
-        });
-
-        gsap.from(chars, {
-          y: 300,
-          stagger: 0.1,
-          duration: 0.4,
-          scrollTrigger: {
-            trigger: md ? horizontalRef.current : textRef.current,
-            start: "top 90%",
-            end: "bottom 50%",
-            scrub: 1,
-          },
-        });
+      gsap.from(chars, {
+        y: 300,
+        stagger: 0.1,
+        duration: 0.4,
+        willChange: "transform",
+        scrollTrigger: {
+          trigger: md ? horizontalRef.current : textRef.current,
+          start: "top 90%",
+          end: "bottom 50%",
+          scrub: 1,
+        },
       });
 
       gsap.from(".minis-text", {
@@ -78,7 +74,11 @@ export const Products: FC = () => {
   );
 
   return (
-    <section ref={containerRef} className="relative overflow-hidden">
+    <section
+      id="products"
+      ref={containerRef}
+      className="relative overflow-hidden"
+    >
       <div
         id="mobile-products"
         ref={md ? horizontalRef : null}
@@ -86,7 +86,7 @@ export const Products: FC = () => {
       >
         <h2
           ref={textRef}
-          className="whitespace-nowrap text-center md:text-[7vw] text-[15vw] uppercase text-[#553124] track"
+          className="whitespace-nowrap will-change-transform text-center md:text-[7vw] text-[15vw] uppercase text-[#553124] track"
         >
           Bizde 6
           <br />
@@ -98,12 +98,16 @@ export const Products: FC = () => {
         </div>
 
         {[...Array(3)].map((_, i) => (
-          <a key={i} href={`/product/${i + 1}`}>
+          <a
+            key={i}
+            href={`/product/${i + 1}`}
+            className="w-auto h-[80vw] md:h-[40vw]"
+          >
             <img
               key={i}
               src={`/products/product-${1}.png`}
-              alt=""
-              className="w-auto h-[80vw] md:h-[40vw] object-cover flex-shrink-0"
+              alt="product"
+              className="size-full object-cover"
             />
           </a>
         ))}

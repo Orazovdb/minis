@@ -10,56 +10,52 @@ export const Words: FC = () => {
   const containerRef = useRef(null);
   const minisTextRef = useRef(null);
 
-  console.log(window.innerHeight / 1);
-
   useGSAP(
     () => {
-      document.fonts.ready.then(() => {
-        const { chars, revert } = new SplitText(".words", {
-          type: "chars, lines, words",
-          linesClass: "line++",
-        });
-
-        gsap.from(chars, {
-          scrollTrigger: {
-            trigger: chars,
-            markers: false,
-            scrub: true,
-            start: `top ${window.innerHeight / 2.5}px`,
-            end: "bottom 10%",
-          },
-          autoAlpha: 0.5,
-          stagger: 0.5,
-          onComplete: () => {
-            revert();
-          },
-        });
-
-        gsap.fromTo(
-          minisTextRef.current,
-          {
-            width: 0,
-            x: 100,
-            autoAlpha: 0,
-            placeSelf: "center left",
-          },
-          {
-            width: "100%",
-            autoAlpha: 1,
-            x: 0,
-            duration: 1.5,
-            ease: "circ",
-            scrollTrigger: {
-              trigger: minisTextRef.current,
-              start: "top 90%",
-              end: "bottom 50%",
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-            willChange: "transform, opacity",
-          }
-        );
+      const { chars, revert } = new SplitText(".words", {
+        type: "chars, lines, words",
+        linesClass: "line++",
       });
+
+      gsap.from(chars, {
+        scrollTrigger: {
+          trigger: chars,
+          markers: false,
+          scrub: true,
+          start: `top ${window.innerHeight / 2.5}px`,
+          end: "bottom 10%",
+        },
+        autoAlpha: 0.5,
+        stagger: 0.5,
+        onComplete: () => {
+          revert();
+        },
+      });
+
+      gsap.fromTo(
+        minisTextRef.current,
+        {
+          width: 0,
+          x: 100,
+          autoAlpha: 0,
+          placeSelf: "center left",
+        },
+        {
+          width: "100%",
+          autoAlpha: 1,
+          x: 0,
+          duration: 1.5,
+          ease: "circ",
+          scrollTrigger: {
+            trigger: minisTextRef.current,
+            start: "top 90%",
+            end: "bottom 50%",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+          willChange: "transform, opacity",
+        }
+      );
     },
     { scope: containerRef }
   );
