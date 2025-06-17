@@ -41,7 +41,11 @@ export const Header: FC<Props> = ({ className }) => {
 
       <Burger />
 
-      <div className="md:block hidden" />
+      <a href="/about" className="uppercase text-[1vw] !text-black-bg">
+        about
+      </a>
+
+      {/* <div className="md:block hidden" /> */}
     </header>
   );
 };

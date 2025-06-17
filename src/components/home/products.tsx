@@ -54,7 +54,6 @@ export const Products: FC = () => {
         },
       });
 
-      // Горизонтальная анимация с плавными границами
       if (horizontalRef.current && containerRef.current) {
         const sectionWidth =
           horizontalRef.current.scrollWidth - window.innerWidth;
