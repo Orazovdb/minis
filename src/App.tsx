@@ -1,14 +1,17 @@
 import { Outlet } from "react-router-dom";
 import { Footer, Header, Loader } from "./components/layout";
-import ReactLenis, { useLenis } from "lenis/react";
-import { useEffect } from "react";
+import ReactLenis from "lenis/react";
 import { Burger } from "./components/shared";
+import { useLoaderStore } from "./store/use-loader";
+import { useEffect } from "react";
 
 function App() {
-  const lenis = useLenis();
+  const { setLoading, isLoading } = useLoaderStore((state) => state);
 
   useEffect(() => {
-    lenis?.scrollTo(0);
+    setLoading(true);
+
+    return () => setLoading(false);
   }, []);
 
   return (
@@ -20,14 +23,12 @@ function App() {
       }}
     >
       <div>
+        {isLoading && <Loader />}
         <Burger />
-        <Loader />
         <Header />
-
         <main className="flex-auto overflow-hidden">
           <Outlet />
         </main>
-
         <Footer />
       </div>
     </ReactLenis>

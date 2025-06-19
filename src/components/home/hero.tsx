@@ -27,7 +27,6 @@ export const Hero: FC = () => {
         const element = animatedItemsRef.current[index];
         if (!element) return;
 
-        // Начальные позиции за пределами экрана
         const startPositions: Record<AnimationDirection, GSAPTweenVars> = {
           top: { y: -item.distance, opacity: 0 },
           bottom: { y: item.distance, opacity: 0 },
@@ -51,8 +50,8 @@ export const Hero: FC = () => {
         );
       });
       const parallaxEffect = (e: MouseEvent) => {
-        const sensitivity = 0.1;
-        const maxOffset = 50;
+        const sensitivity = 0.3;
+        const maxOffset = 400;
 
         const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
         const mouseY = (e.clientY / window.innerHeight) * 2 - 1;
@@ -75,7 +74,6 @@ export const Hero: FC = () => {
     { scope: containerRef }
   );
 
-  // Вспомогательная функция для добавления ref
   const addToAnimatedItemsRefs = (
     el: HTMLImageElement | null,
     index: number
@@ -85,6 +83,7 @@ export const Hero: FC = () => {
 
   return (
     <section
+      id="hero"
       ref={containerRef}
       className="relative md:h-screen h-[70vh] overflow-hidden"
     >
@@ -120,7 +119,7 @@ export const Hero: FC = () => {
           className={item.className}
           alt={`Animated element ${index + 1}`}
         />
-      ))}{" "}
+      ))}
     </section>
   );
 };

@@ -7,13 +7,26 @@ import {
   Slogan,
   Words,
 } from "../components/home";
+import { useLoaderStore } from "../store/use-loader";
+import { useLenis } from "lenis/react";
 
 export default function Home() {
+  const setLoading = useLoaderStore((state) => state.setLoading);
+  const lenis = useLenis();
+
+  lenis?.scrollTo("#hero", {
+    lerp: 0,
+    duration: 0,
+  });
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setLoading(true);
+
+    return () => setLoading(false);
   }, []);
+
   return (
-    <div className="">
+    <div>
       <Hero />
       <Words />
       <Products />

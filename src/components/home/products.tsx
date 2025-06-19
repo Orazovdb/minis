@@ -2,7 +2,9 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { useLenis } from "lenis/react";
 import { useRef, type FC } from "react";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -13,6 +15,7 @@ export const Products: FC = () => {
   const horizontalRef = useRef<HTMLDivElement>(null);
 
   const md = useMediaQuery("(min-width: 768px)");
+  const lenis = useLenis();
 
   useGSAP(
     () => {
@@ -98,9 +101,9 @@ export const Products: FC = () => {
         </div>
 
         {[...Array(3)].map((_, i) => (
-          <a
+          <Link
             key={i}
-            href={`/product/${i + 1}`}
+            to={`/product/${i + 1}`}
             className="w-auto h-[80vw] md:h-[40vw]"
           >
             <img
@@ -109,12 +112,14 @@ export const Products: FC = () => {
               alt="product"
               className="size-full object-cover"
             />
-          </a>
+          </Link>
         ))}
       </div>
 
       <div className="flex justify-center w-full mx-auto md:py-[5vw] py-[15vw]">
-        <button className="btn">See All</button>
+        <button onClick={() => lenis?.scrollTo("#")} className="btn">
+          See All
+        </button>
       </div>
     </section>
   );

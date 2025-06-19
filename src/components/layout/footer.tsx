@@ -69,12 +69,12 @@ export const Footer: FC<Props> = ({ className }) => {
           <h4>Copyright © 2025 Mini’s - All Rights Reserved</h4>
 
           <div className="flex items-center gap-[1.25vw]">
-            <a href="" className="hover:opacity-60 transition-opacity">
+            <Link to="" className="hover:opacity-60 transition-opacity">
               Privacy Policy
-            </a>
-            <a href="" className="hover:opacity-60 transition-opacity">
+            </Link>
+            <Link to="" className="hover:opacity-60 transition-opacity">
               Terms of Sеrvice
-            </a>
+            </Link>
           </div>
         </div>
       </div>

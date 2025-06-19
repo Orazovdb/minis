@@ -1,7 +1,10 @@
 import { useGSAP } from "@gsap/react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { useMediaQuery } from "usehooks-ts";
+import { useLenis } from "lenis/react";
+import { useLoaderStore } from "../store/use-loader";
 
 const data = [
   {
@@ -27,27 +30,95 @@ const data = [
 gsap.registerPlugin(SplitText);
 
 export default function Product() {
+  const containerRef = useRef(null);
+  const md = useMediaQuery("(min-width: 768px)");
+  const lenis = useLenis();
+  const isLoading = useLoaderStore((state) => state.isLoading);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    lenis?.scrollTo(0, {
+      duration: 0,
+      lerp: 0,
+    });
   }, []);
 
-  useGSAP(() => {}, {});
+  useGSAP(
+    () => {
+      const { chars } = new SplitText("#title", {
+        type: "chars, lines",
+        mask: "lines",
+      });
+
+      const titleTl = gsap.timeline({ delay: isLoading ? 2.7 : 0 });
+
+      titleTl.from(chars, {
+        y: "100%",
+        stagger: 0.05,
+      });
+
+      titleTl.from("#title-card", {
+        width: 0,
+        opacity: 0,
+      });
+
+      gsap.from("#product", {
+        right: "-100%",
+        delay: isLoading ? 3 : 0,
+        duration: 1,
+        ease: "back.out(1.6)",
+      });
+
+      gsap.from("#duzum", {
+        y: md ? "100vw" : 0,
+        x: !md ? "-100vw" : 0,
+        delay: isLoading ? 3 : 0,
+        duration: 1,
+        ease: "back.out(1.2)",
+      });
+
+      gsap.from("#vitamin", {
+        opacity: 0,
+        y: 300,
+        delay: isLoading ? 3 : 0,
+        stagger: 0.1,
+      });
+    },
+
+    {
+      scope: containerRef,
+      dependencies: [],
+    }
+  );
 
   return (
-    <div className="flex text-black-bg mx-[10vw] gap-[10vw] mt-[10vw] pb-[10vw]">
-      <div className="flex-[0_0_45%] flex flex-col">
-        <div className="relative h-[25vw] ">
-          <h2 className="name text-[8vw] track uppercase text-[#553124]">
+    <section
+      id="#main"
+      ref={containerRef}
+      className="flex flex-col md:flex-row text-black-bg md:mx-[10vw] mx-[5vw]  gap-[10vw] md:mt-[8vw] mt-[20vw] pb-[10vw]"
+    >
+      <div className="md:flex-[0_0_45%] flex flex-col md:items-start items-center">
+        <div className="relative md:h-[25vw] h-[50vw]">
+          <h2
+            id="title"
+            className="md:text-[8vw] text-[17vw] track uppercase text-[#553124]"
+          >
             Nutrien&
           </h2>
-          <div className="uppercase text-light-brown-block absolute -left-[4vw] !leading-[95%] !px-[3vw] top-[10vw] outline-[0.5vw] -rotate-[3deg] !text-[8vw] !bg-[#EFAA5E]">
+          <div
+            id="title-card"
+            className="uppercase text-light-brown-block absolute -left-[10vw] md:-left-[4vw] !leading-[95%] !px-[3vw] md:top-[10vw] top-[20vw] outline-[0.5vw] -rotate-[3deg] !text-[17vw] md:!text-[8vw] !bg-[#EFAA5E]"
+          >
             ingredients
           </div>
         </div>
 
-        <div className="grid grid-cols-3 w-full gap-[2vw] -ml-[3vw]">
+        <div className="grid grid-cols-3 w-full gap-[2vw] md:-ml-[3vw] place-items-center">
           {data.map(({ name }, i) => (
-            <div key={i} className="w-[10vw] h-[15vw] overflow-hidden ">
+            <div
+              id="vitamin"
+              key={i}
+              className="md:w-[10vw] w-[25vw] h-auto overflow-hidden "
+            >
               <img
                 src={`/product/${i + 1}.svg`}
                 className="w-full h-auto object-cover mb-[1vw]"
@@ -61,13 +132,19 @@ export default function Product() {
       </div>
 
       <div className="flex-auto relative mt-[5vw]">
-        <img src="/product/duzum.svg" alt="" />
         <img
+          id="duzum"
+          src="/product/duzum.svg"
+          alt=""
+          className="md:w-[26vw] w-[60vw] h-auto"
+        />
+        <img
+          id="product"
           src="/product/dragee-brown.png"
           alt="dragee"
-          className="absolute -right-[5vw] top-0"
+          className="absolute -right-[5vw] top-0 md:w-[20vw] w-[50vw] h-auto"
         />
       </div>
-    </div>
+    </section>
   );
 }

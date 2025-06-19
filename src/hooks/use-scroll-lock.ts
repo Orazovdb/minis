@@ -7,5 +7,5 @@ export const scrollStop = () => {
     lenis?.stop();
 
     return () => lenis?.start();
-  }, []);
+  }, [lenis]);
 };

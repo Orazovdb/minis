@@ -32,7 +32,7 @@ export const Slogan = () => {
   return (
     <section
       ref={containerRef}
-      className="slogan-section relative md:h-screen h-[50vh] bg-black-bg uppercase md:text-[6vw] text-[12vw] flex flex-col items-center -tracking-[0.4vw]"
+      className="slogan-section relative md:h-[50vw] h-[105vw] bg-black-bg uppercase md:text-[6vw] text-[12vw] flex flex-col items-center -tracking-[0.4vw]"
     >
       {/* Заголовок 1 */}
       <div className="absolute top-[25vw] md:top-[10vw] rotate-6 z-10">

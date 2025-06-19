@@ -8,9 +8,10 @@ interface LoaderState {
   completeInitialLoad: () => void;
 }
 
-export const useLoaderStore = create<LoaderState>((set) => ({
+export const useLoaderStore = create<LoaderState>()((set) => ({
   isLoading: true,
   initialLoadComplete: false,
-  setLoading: (isLoading) => set({ isLoading }),
+  setLoading: (isLoading) =>
+    set((state) => ({ isLoading: (state.isLoading = isLoading) })),
   completeInitialLoad: () => set({ initialLoadComplete: true }),
 }));

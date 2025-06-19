@@ -4,12 +4,14 @@ import gsap from "gsap";
 import { useRef, useState, useEffect } from "react";
 import { useLoaderStore } from "../../store/use-loader";
 import { useLenis } from "lenis/react";
+import { useAnimateStore } from "../../store/use-animation";
 
 export const Loader = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const { isLoading, setIsLoading } = useAnimateStore((state) => state);
 
   const setLoading = useLoaderStore((state) => state.setLoading);
   const lenis = useLenis();
@@ -33,48 +35,65 @@ export const Loader = () => {
     };
   }, [lenis]);
 
-  useGSAP(() => {
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + 1;
-        if (newProgress >= 100) {
-          clearInterval(progressInterval);
-          return 100;
-        }
-        return newProgress;
-      });
-    }, 20);
-
-    const hideTimeout = setTimeout(() => {
-      gsap.to(loaderRef.current, {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        onComplete: () => {
-          gsap.to(loaderRef.current, {
-            y: "-100%",
-            duration: 0.5,
-            ease: "power2.in",
-            onComplete: () => {
-              setIsVisible(false);
-              setLoading(false);
-
-              setTimeout(() => {
-                if (lenis?.isStopped) {
-                  lenis.start();
-                }
-              }, 100);
-            },
-          });
-        },
-      });
-    }, 2000);
+  useEffect(() => {
+    setIsLoading(true);
 
     return () => {
-      clearInterval(progressInterval);
-      clearTimeout(hideTimeout);
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 2500);
     };
-  }, []);
+  }, [isLoading]);
+
+  useGSAP(
+    () => {
+      const master = gsap.timeline({
+        onComplete: () => setIsLoading(true),
+      });
+
+      const progressInterval = setInterval(() => {
+        setProgress((prev) => {
+          const newProgress = prev + 1;
+          if (newProgress >= 100) {
+            clearInterval(progressInterval);
+            return 100;
+          }
+          return newProgress;
+        });
+      }, 20);
+
+      const hideTimeout = setTimeout(() => {
+        master.to(loaderRef.current, {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          onComplete: () => {
+            gsap.to(loaderRef.current, {
+              y: "-100%",
+              duration: 0.5,
+              ease: "power2.in",
+              onComplete: () => {
+                setIsVisible(false);
+                setLoading(false);
+
+                setTimeout(() => {
+                  if (lenis?.isStopped) {
+                    lenis.start();
+                  }
+                }, 100);
+              },
+            });
+          },
+        });
+      }, 2000);
+
+      return () => {
+        clearInterval(progressInterval);
+        clearTimeout(hideTimeout);
+      };
+    },
+    { scope: loaderRef }
+  );
 
   useEffect(() => {
     if (progressBarRef.current) {
