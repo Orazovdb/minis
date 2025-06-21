@@ -4,7 +4,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { CatalogCard } from "../components/shared/catalog-card";
 import { useLenis } from "lenis/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useAnimateStore } from "../store/use-animation";
+import { useLoaderStore } from "../store/use-loader";
 
 const cards = [
   {
@@ -29,11 +31,14 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 export default function About() {
   const lenis = useLenis();
   const containerRef = useRef(null);
+  const loading = useLoaderStore((state) => state.isLoading);
 
-  lenis?.scrollTo(0, {
-    duration: 0,
-    lerp: 0,
-  });
+  useEffect(() => {
+    lenis?.scrollTo(0, {
+      duration: 0,
+      lerp: 0,
+    });
+  }, []);
 
   useGSAP(
     () => {
@@ -55,6 +60,17 @@ export default function About() {
         });
       });
 
+      const { lines } = new SplitText("#cover-text", {
+        type: "lines",
+        mask: "lines",
+      });
+
+      gsap.from(lines, {
+        y: 200,
+        stagger: 0.3,
+        delay: loading ? 3 : 0,
+      });
+
       gsap.from(".catalog-card", {
         scrollTrigger: {
           trigger: ".catalog-card",
@@ -65,7 +81,6 @@ export default function About() {
         rotate: 0,
         ease: "back.out(1.6)",
 
-        // scrub: 1,
         y: "100%",
         duration: 1,
         stagger: 0.1,
@@ -76,23 +91,33 @@ export default function About() {
 
   return (
     <section ref={containerRef}>
-      <img
-        id="about-img"
-        src="/about.png"
-        alt="about cover"
-        className="w-full md:h-screen h-[50vh] object-cover"
-      />
+      <div className="relative h-[50vw] flex justify-center items-center">
+        <img
+          id="about-img"
+          src="/about.png"
+          alt="about cover"
+          className="size-full absolute top-0 left-0  object-cover"
+        />
+
+        <h3
+          id="cover-text"
+          className="text-[3vw] text-center relative z-[1] mx-[5vw]"
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+          molestias quae, temporibus a dolores, reprehenderit iste quaerat,
+        </h3>
+      </div>
 
       <div className="text-center flex flex-col items-center mt-[4vw]">
         <h3
           id="catalog-title"
-          className="text-[#865720] font-bold text-[10vw] md:text-[2vw] md:mb-[1.25vw] mb-[5vw]"
+          className="text-[#865720] font-bold text-[10vw] md:text-[5vw] md:mb-[1.25vw] mb-[5vw]"
         >
           Our Story Begins
         </h3>
         <p
           id="catalog-text"
-          className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-[0.8vw] mb-[10vw] w-[80vw] md:text-[0.93vw] text-[3vw] md:leading-[100%] leading-[125%]"
+          className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-[0.8vw] mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]"
         >
           Our brand celebrates staying young. If there is anything adventurous,
           unconventional, or excitingly unexpected we’re down. And while
@@ -102,7 +127,7 @@ export default function About() {
           through shared mayhem and mischief.
         </p>
 
-        <p className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[0.93vw] text-[3vw] md:leading-[100%] leading-[125%]">
+        <p className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]">
           SPYLT is the kid who pushed the limits who got their life together,
           settled down without settling, and never forgot the essence of what
           made them THEM. #MilktheMostOutOfLife

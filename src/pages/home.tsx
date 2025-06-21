@@ -9,20 +9,27 @@ import {
 } from "../components/home";
 import { useLoaderStore } from "../store/use-loader";
 import { useLenis } from "lenis/react";
+import { useRedirectStore } from "../store/use-redirect";
 
 export default function Home() {
   const setLoading = useLoaderStore((state) => state.setLoading);
   const lenis = useLenis();
 
-  lenis?.scrollTo("#hero", {
-    lerp: 0,
-    duration: 0,
-  });
+  const { redirectSection } = useRedirectStore((state) => state);
+
+  redirectSection
+    ? lenis?.scrollTo(redirectSection)
+    : lenis?.scrollTo("#hero", {
+        lerp: 0,
+        duration: 0,
+      });
 
   useEffect(() => {
     setLoading(true);
 
-    return () => setLoading(false);
+    return () => {
+      setLoading(false);
+    };
   }, []);
 
   return (

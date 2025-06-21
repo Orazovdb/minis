@@ -2,16 +2,17 @@ import { useGSAP } from "@gsap/react";
 import { useBurgerStore } from "../../store/use-burger";
 import gsap from "gsap";
 import { scrollStop } from "../../hooks/use-scroll-lock";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import clsx from "clsx";
-import { useAnimateStore } from "../../store/use-animation";
+import { useRedirectStore } from "../../store/use-redirect";
 import { useLenis } from "lenis/react";
 
 const navData = [
   {
     name: "about",
     link: "/about",
+    id: "",
   },
   {
     name: "products",
@@ -29,6 +30,8 @@ export const Burger = () => {
   const { isOpen, setIsOpen } = useBurgerStore((state) => state);
   const [isHover, setIsHover] = useState(0);
   const [isEnter, setIsEnter] = useState(false);
+
+  const setRedirect = useRedirectStore((state) => state.setRedirect);
 
   scrollStop();
 
@@ -66,20 +69,13 @@ export const Burger = () => {
     { dependencies: [isOpen] }
   );
 
-  const isLoading = useAnimateStore((state) => state.isLoading);
   const lenis = useLenis();
-  const navigate = useNavigate();
 
-  const redirect = (id?: string, isHome?: boolean) => {
+  const onLink = (str?: string) => {
     setIsOpen(false);
 
-    if (isHome && id) {
-      navigate("/");
-
-      if (isLoading) setTimeout(() => lenis?.scrollTo(id), 3000);
-      else lenis?.scrollTo(id);
-      lenis?.scrollTo(id);
-    } else if (id) lenis?.scrollTo(id);
+    if (str === "#products") setRedirect(str ?? "");
+    else lenis?.scrollTo(str ?? "");
   };
 
   return (
@@ -93,11 +89,9 @@ export const Burger = () => {
             id="navigation"
             className="flex flex-[0_0_50%] items-center flex-col justify-center h-full -translate-y-[100%]"
           >
-            {navData.map(({ name, link, home, id }, i) => (
+            {navData.map(({ name, link, id }, i) => (
               <Link
-                onClick={() => {
-                  redirect(id, home);
-                }}
+                onClick={() => onLink(id)}
                 onMouseEnter={() => {
                   setIsEnter(true);
                   setIsHover(i + 1);
@@ -107,7 +101,7 @@ export const Burger = () => {
                   setIsHover(0);
                 }}
                 key={name}
-                to={link ?? ""}
+                to={link ?? id}
                 className={clsx(
                   "uppercase md:text-[7vw] text-[17vw] duration-300 sleading-[110%] ease-in-out transition-all",
                   isEnter && isHover !== i + 1 && "opacity-50"

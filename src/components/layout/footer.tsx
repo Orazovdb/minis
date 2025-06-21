@@ -1,15 +1,43 @@
 import clsx from "clsx";
-import type { FC } from "react";
+import { useRef, type FC } from "react";
 import { socials } from "../../lib/constantas";
 import { Link } from "react-router-dom";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface Props {
   className?: string;
 }
 
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
 export const Footer: FC<Props> = ({ className }) => {
+  const footerRef = useRef(null);
+  useGSAP(
+    () => {
+      const { chars } = new SplitText("#hashtag", {
+        type: "chars, lines",
+        mask: "lines",
+      });
+
+      gsap.from(chars, {
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 70%",
+          end: "bottom 30%",
+        },
+        y: 200,
+        stagger: 0.05,
+      });
+    },
+    { scope: footerRef }
+  );
+
   return (
     <footer
+      ref={footerRef}
       id="footer"
       className={clsx("bg-[#222123] pb-[1.56vw] w-full", className)}
     >
@@ -19,6 +47,17 @@ export const Footer: FC<Props> = ({ className }) => {
           className="size-full object-cover"
         />
       </div>
+
+      <h2
+        id="hashtag"
+        className="text-center hidden md:block md:text-[10vw] text-[12vw] uppercase"
+      >
+        #minisdragee
+      </h2>
+
+      <h2 className="text-center md:hidden text-[12vw] uppercase">
+        #minisdragee
+      </h2>
 
       <div className="flex items-center md:gap-[0.72vw] gap-[2vw] justify-center mt-[3.333vw]">
         {socials.map((item, i) => (

@@ -1,4 +1,5 @@
 import { useGSAP } from "@gsap/react";
+import clsx from "clsx";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -34,7 +35,7 @@ export const Products: FC = () => {
         scrollTrigger: {
           trigger: md ? horizontalRef.current : textRef.current,
           start: "top 90%",
-          end: "bottom 50%",
+          end: "bottom 80%",
           scrub: 1,
         },
       });
@@ -85,7 +86,7 @@ export const Products: FC = () => {
       <div
         id="mobile-products"
         ref={md ? horizontalRef : null}
-        className="md:horizontal flex flex-col md:flex-row gap-[10vw] items-center px-[5vw] md:w-[200vw] will-change-transform"
+        className="md:horizontal relative flex flex-col md:flex-row gap-[15vw] items-center px-[5vw] md:w-[200vw] will-change-transform"
       >
         <h2
           ref={textRef}
@@ -96,7 +97,7 @@ export const Products: FC = () => {
           GORNUSH BAR
         </h2>
 
-        <div className="minis-text inline-block text-light-brown-block md:overflow-hidden leading-none !pb-[1vw] border-[0.4vw] z-50 text-light-brown-block -rotate-[6deg] !px-[3vw] md:!text-[6vw] absolute top-[17vw] left-[33vw] md:left-[12vw]">
+        <div className="minis-text inline-block text-light-brown-block md:overflow-hidden leading-none !pb-[1vw] border-[0.4vw] z-50 text-light-brown-block -rotate-[6deg] !px-[3vw] md:!text-[6vw] absolute top-[14vw] left-[33vw] md:left-[12vw]">
           Mini’s
         </div>
 
@@ -104,7 +105,10 @@ export const Products: FC = () => {
           <Link
             key={i}
             to={`/product/${i + 1}`}
-            className="w-auto h-[80vw] md:h-[40vw]"
+            className={clsx(
+              "md:w-[60vw] w-[80vw] h-auto mt-[2vw]",
+              i % 2 === 0 ? "rotate-[8deg]" : "-rotate-[8deg]"
+            )}
           >
             <img
               key={i}
@@ -116,7 +120,7 @@ export const Products: FC = () => {
         ))}
       </div>
 
-      <div className="flex justify-center w-full mx-auto md:py-[5vw] py-[15vw]">
+      <div className="flex justify-center w-full mx-auto relative z-[100] md:pb-[5vw] md:pt-[5vw] py-[10vw]">
         <button onClick={() => lenis?.scrollTo("#")} className="btn">
           See All
         </button>
