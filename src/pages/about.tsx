@@ -5,8 +5,9 @@ import { SplitText } from "gsap/SplitText";
 import { CatalogCard } from "../components/shared/catalog-card";
 import { useLenis } from "lenis/react";
 import { useEffect, useRef } from "react";
-import { useAnimateStore } from "../store/use-animation";
 import { useLoaderStore } from "../store/use-loader";
+import { useRedirectStore } from "../store/use-redirect";
+import { useNavigate } from "react-router-dom";
 
 const cards = [
   {
@@ -32,32 +33,44 @@ export default function About() {
   const lenis = useLenis();
   const containerRef = useRef(null);
   const loading = useLoaderStore((state) => state.isLoading);
+  const { redirectSection, setRedirect } = useRedirectStore((state) => state);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    lenis?.scrollTo(0, {
-      duration: 0,
-      lerp: 0,
-    });
-  }, []);
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 0, lerp: 0 });
+    }
+  }, [lenis]);
+
+  useEffect(() => {
+    if (redirectSection && lenis) {
+      lenis.scrollTo(redirectSection);
+      if (loading) setTimeout(() => setRedirect(""), 3000);
+      else setRedirect("");
+    }
+
+    if (redirectSection === "#products") {
+      navigate("/");
+      setRedirect("#products");
+    }
+  }, [redirectSection, lenis]);
 
   useGSAP(
     () => {
-      document.fonts.ready.then(() => {
-        const { chars } = new SplitText("#catalog-title", {
-          type: "chars, lines",
-          mask: "lines",
-        });
+      const { chars } = new SplitText("#catalog-title", {
+        type: "chars, lines",
+        mask: "lines",
+      });
 
-        gsap.from(chars, {
-          scrollTrigger: {
-            trigger: "#catalog-title",
-            start: "top 80%",
-            end: "top 20%",
-          },
-          y: 100,
-          duration: 0.2,
-          stagger: 0.05,
-        });
+      gsap.from(chars, {
+        scrollTrigger: {
+          trigger: "#catalog-title",
+          start: "top 80%",
+          end: "top 20%",
+        },
+        y: 200,
+        duration: 0.2,
+        stagger: 0.05,
       });
 
       const { lines } = new SplitText("#cover-text", {

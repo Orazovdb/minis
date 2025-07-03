@@ -40,7 +40,7 @@ export const Loader = () => {
 
     return () => {
       setTimeout(() => {
-        setIsLoading(true);
+        setIsLoading(false);
       }, 2500);
     };
   }, [isLoading]);

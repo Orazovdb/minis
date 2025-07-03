@@ -20,24 +20,26 @@ export const Products: FC = () => {
 
   useGSAP(
     () => {
-      const { chars } = new SplitText(textRef.current, {
-        type: "chars, lines",
-        charsClass: "char++",
-        linesClass: "product-line++",
-        mask: "lines",
-      });
+      document.fonts.ready.then(() => {
+        const { chars } = new SplitText(textRef.current, {
+          type: "chars, lines",
+          charsClass: "char++",
+          linesClass: "product-line++",
+          mask: "lines",
+        });
 
-      gsap.from(chars, {
-        y: 300,
-        stagger: 0.1,
-        duration: 0.4,
-        willChange: "transform",
-        scrollTrigger: {
-          trigger: md ? horizontalRef.current : textRef.current,
-          start: "top 90%",
-          end: "bottom 80%",
-          scrub: 1,
-        },
+        gsap.from(chars, {
+          y: 300,
+          stagger: 0.1,
+          duration: 0.4,
+          willChange: "transform",
+          scrollTrigger: {
+            trigger: md ? horizontalRef.current : textRef.current,
+            start: "top 90%",
+            end: "bottom 80%",
+            scrub: 1,
+          },
+        });
       });
 
       gsap.from(".minis-text", {
@@ -84,20 +86,20 @@ export const Products: FC = () => {
       className="relative overflow-hidden"
     >
       <div
-        id="mobile-products"
+        id=""
         ref={md ? horizontalRef : null}
         className="md:horizontal relative flex flex-col md:flex-row gap-[15vw] items-center px-[5vw] md:w-[200vw] will-change-transform"
       >
         <h2
           ref={textRef}
-          className="whitespace-nowrap will-change-transform text-center md:text-[7vw] text-[15vw] uppercase text-[#553124] track"
+          className="whitespace-nowrap will-change-transform text-center md:text-[7vw] text-[15vw] md:leading-[180%] uppercase text-[#553124] track"
         >
           Bizde 6
           <br />
           GORNUSH BAR
         </h2>
 
-        <div className="minis-text inline-block text-light-brown-block md:overflow-hidden leading-none !pb-[1vw] border-[0.4vw] z-50 text-light-brown-block -rotate-[6deg] !px-[3vw] md:!text-[6vw] absolute top-[14vw] left-[33vw] md:left-[12vw]">
+        <div className="minis-text max-w-fit inline-block text-light-brown-block md:overflow-hidden leading-none !pb-[1vw] border-[0.4vw] z-50 text-light-brown-block -rotate-[6deg] !px-[3vw] md:!text-[6vw] absolute md:top-[14.3vw] top-[14vw] left-[33vw] md:left-[12vw]">
           Mini’s
         </div>
 
@@ -107,12 +109,12 @@ export const Products: FC = () => {
             to={`/product/${i + 1}`}
             className={clsx(
               "md:w-[60vw] w-[80vw] h-auto mt-[2vw]",
-              i % 2 === 0 ? "rotate-[8deg]" : "-rotate-[8deg]"
+              i % 2 === 0 ? "md:rotate-[8deg]" : "md:-rotate-[8deg]"
             )}
           >
             <img
               key={i}
-              src={`/products/product-${1}.png`}
+              src={`/products/product-${i + 1}.png`}
               alt="product"
               className="size-full object-cover"
             />
@@ -120,7 +122,7 @@ export const Products: FC = () => {
         ))}
       </div>
 
-      <div className="flex justify-center w-full mx-auto relative z-[100] md:pb-[5vw] md:pt-[5vw] py-[10vw]">
+      <div className="flex justify-center w-full mx-auto relative z-20 md:pb-[5vw] md:pt-[10vw] py-[10vw]">
         <button onClick={() => lenis?.scrollTo("#")} className="btn">
           See All
         </button>

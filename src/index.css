@@ -7,6 +7,12 @@
   font-weight: 400;
 }
 
+@font-face {
+  font-family: "Antonio";
+  src: local("Antonio"), url("../fonts/Antonio.woff2") format("woff2");
+  font-weight: 700;
+}
+
 @theme {
   --color-light-brown: #c88e64;
   --color-dark-brown: #7f3b2d;
@@ -133,11 +139,15 @@ html {
 
 body {
   background-color: #faeade;
+  font-family: "Antonio";
 }
 
 @layer utilities {
   .proxima {
     @apply font-['ProximaNova'];
+  }
+  .antonio {
+    @apply font-['Antonio'];
   }
   .container {
     @apply w-[72vw] mx-auto;
@@ -160,15 +170,15 @@ body {
   }
 
   .line4 {
-    @apply md:mb-0 mb-[15vw];
+    @apply md:mb-0 mb-[7vw];
   }
 
   .text-light-brown-block {
-    @apply bg-light-brown w-fit -tracking-[0.4vw] text-[13vw] md:text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
+    @apply bg-light-brown -tracking-[0.4vw] text-[13vw] md:text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] py-[1vw] font-bold;
   }
 
   .text-dark-brown-block {
-    @apply bg-dark-brown w-fit -tracking-[0.4vw] text-[13vw] md:text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] pb-[1.5vw] font-bold;
+    @apply bg-dark-brown -tracking-[0.4vw] text-[13vw] md:text-[8.95vw] uppercase leading-[105%] whitespace-nowrap text-white-text pl-[1vw] pr-[1.3vw] py-[1vw] font-bold;
   }
 
   .pos-y {

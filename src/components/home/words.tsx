@@ -12,24 +12,23 @@ export const Words: FC = () => {
 
   useGSAP(
     () => {
-      const { chars, revert } = new SplitText(".words", {
-        type: "chars, lines, words",
-        linesClass: "line++",
-      });
+      document.fonts.ready.then(() => {
+        const { chars } = new SplitText(".words", {
+          type: "chars, lines, words",
+          linesClass: "line++",
+        });
 
-      gsap.from(chars, {
-        scrollTrigger: {
-          trigger: chars,
-          markers: false,
-          scrub: true,
-          start: `top ${window.innerHeight / 2.5}px`,
-          end: "bottom 10%",
-        },
-        autoAlpha: 0.5,
-        stagger: 0.5,
-        onComplete: () => {
-          revert();
-        },
+        gsap.from(chars, {
+          scrollTrigger: {
+            trigger: chars,
+            markers: false,
+            scrub: true,
+            start: `top ${window.innerHeight / 2.5}px`,
+            end: "bottom 10%",
+          },
+          autoAlpha: 0.5,
+          stagger: 0.5,
+        });
       });
 
       gsap.fromTo(
@@ -63,9 +62,9 @@ export const Words: FC = () => {
   return (
     <section
       ref={containerRef}
-      className="bg-dark-brown relative section py-[8vw]"
+      className="bg-dark-brown relative section md:py-[8vw] py-[20vw]"
     >
-      <h2 className="text-white words md:text-[10vw] text-[20vw] uppercase leading-[105%] track text-center">
+      <h2 className="text-[#FAEADE] words md:text-[10vw] px-[20vw] md:px-0 text-[12vw] uppercase leading-[105%] track text-center">
         Shu yere gowja
         <br />
         Moshny gowja soz
@@ -75,12 +74,12 @@ export const Words: FC = () => {
         birzat bolmaly tapyndaa
       </h2>
 
-      <div className="pos-x md:top-[25vw] top-[90vw]">
+      <div className="pos-x md:top-[25vw] top-[65vw]">
         <div
           ref={minisTextRef}
           className="minis-text z-50 rotate-[4deg] origin-center overflow-hidden"
         >
-          <div className="text-light-brown-block md:!text-[9vw] !text-[20vw] !text-dark-brown border-dark-brown border-[2vw] md:border-[1vw] px-[4vw] py-[1vw] inline-block">
+          <div className="text-light-brown-block md:!text-[9vw] !text-[12vw] !bg-[#E8A460] !text-dark-brown border-dark-brown border-[0.5vw] md:border-[1vw] px-[4vw] py-[1vw] inline-block">
             Mini's
           </div>
         </div>

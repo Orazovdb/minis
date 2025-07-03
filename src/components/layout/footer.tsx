@@ -14,7 +14,7 @@ interface Props {
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 export const Footer: FC<Props> = ({ className }) => {
-  const footerRef = useRef(null);
+  const footerRef = useRef<HTMLElement>(null);
   useGSAP(
     () => {
       const { chars } = new SplitText("#hashtag", {
@@ -28,7 +28,7 @@ export const Footer: FC<Props> = ({ className }) => {
           start: "top 70%",
           end: "bottom 30%",
         },
-        y: 200,
+        y: 300,
         stagger: 0.05,
       });
     },
@@ -50,12 +50,12 @@ export const Footer: FC<Props> = ({ className }) => {
 
       <h2
         id="hashtag"
-        className="text-center hidden md:block md:text-[10vw] text-[12vw] uppercase"
+        className="text-center text-[#FAEADE] hidden md:block md:text-[10vw] text-[12vw] uppercase"
       >
         #minisdragee
       </h2>
 
-      <h2 className="text-center md:hidden text-[12vw] uppercase">
+      <h2 className="text-center text-[#FAEADE] md:hidden text-[12vw] uppercase">
         #minisdragee
       </h2>
 

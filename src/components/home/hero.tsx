@@ -2,15 +2,17 @@ import { useGSAP } from "@gsap/react";
 import { useRef, type FC } from "react";
 import gsap from "gsap";
 import { animatedItems, type AnimationDirection } from "../../constantas";
+import { useLoaderStore } from "../../store/use-loader";
 
 export const Hero: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const decorItemsRef = useRef<(HTMLImageElement | null)[]>([]);
   const animatedItemsRef = useRef<(HTMLImageElement | null)[]>([]);
+  const loading = useLoaderStore((state) => state.isLoading);
 
   useGSAP(
     () => {
-      const master = gsap.timeline({ delay: 3 });
+      const master = gsap.timeline({ delay: loading ? 3 : 0 });
 
       master.fromTo(
         "#dragee",
@@ -85,7 +87,7 @@ export const Hero: FC = () => {
     <section
       id="hero"
       ref={containerRef}
-      className="relative md:h-screen h-[70vh] overflow-hidden"
+      className="relative md:h-screen h-[80vh] overflow-hidden"
     >
       {/* Текстовый блок */}
       <div className="relative z-10">

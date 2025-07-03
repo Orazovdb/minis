@@ -35,12 +35,6 @@ export const Catalog = () => {
       mask: "lines",
     });
 
-    // const { lines } = new SplitText("#catalog-text", {
-    //   type: "chars, lines",
-    //   smartWrap: true,
-    //   autoSplit: true,
-    // });
-
     gsap.from(chars, {
       y: 200,
       duration: 0.3,
@@ -51,21 +45,6 @@ export const Catalog = () => {
       },
       stagger: 0.05,
     });
-
-    // gsap.from(lines, {
-    //   autoAlpha: 0,
-    //   y: 100,
-    //   duration: 0.3,
-    //   scrollTrigger: {
-    //     trigger: "#catalog",
-    //     start: "top 80%",
-    //     end: "bottom 20%",
-    //   },
-    //   stagger: {
-    //     each: 0.5,
-    //     amount: 0.5,
-    //   },
-    // });
 
     gsap.from(".catalog-card", {
       scrollTrigger: {
