@@ -7,6 +7,7 @@ import { useLenis } from "lenis/react";
 import { useRef, type FC } from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
+import { useTranslate } from "../../lib/utils";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -66,7 +67,7 @@ export const Products: FC = () => {
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top top",
-            end: `+=${sectionWidth * 1.5}`,
+            end: `+=${sectionWidth * 2}`,
             scrub: 1,
             pin: true,
             anticipatePin: 1,
@@ -79,6 +80,9 @@ export const Products: FC = () => {
     { scope: containerRef }
   );
 
+  const title = useTranslate("Pick your", "Hangisini");
+  const blockTitle = useTranslate("favorite", "seçeceksin");
+
   return (
     <section
       id="products"
@@ -88,22 +92,20 @@ export const Products: FC = () => {
       <div
         id=""
         ref={md ? horizontalRef : null}
-        className="md:horizontal relative flex flex-col md:flex-row gap-[15vw] items-center px-[5vw] md:w-[200vw] will-change-transform"
+        className="md:horizontal relative flex flex-col md:flex-row gap-[15vw] items-center px-[5vw] md:w-[300vw] will-change-transform"
       >
         <h2
           ref={textRef}
           className="whitespace-nowrap will-change-transform text-center md:text-[7vw] text-[15vw] md:leading-[180%] uppercase text-[#553124] track"
         >
-          Bizde 6
-          <br />
-          GORNUSH BAR
+          {title}
         </h2>
 
-        <div className="minis-text max-w-fit inline-block text-light-brown-block md:overflow-hidden leading-none !pb-[1vw] border-[0.4vw] z-50 text-light-brown-block -rotate-[6deg] !px-[3vw] md:!text-[6vw] absolute md:top-[14.3vw] top-[14vw] left-[33vw] md:left-[12vw]">
-          Mini’s
+        <div className="minis-text max-w-fit md:left-[3vw] -translate-x-1/2 md:-translate-x-0 left-1/2 !-tracking-[0.3vw] !py-[0.2vw] !bg-[#EFAA5E] inline-block text-light-brown-block md:overflow-hidden leading-none  border-[0.4vw] z-50 text-light-brown-block !-rotate-[2deg] !px-[4vw] md:!text-[6vw] absolute md:top-[21vw] top-[14vw]">
+          {blockTitle}
         </div>
 
-        {[...Array(3)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <Link
             key={i}
             to={`/product/${i + 1}`}
@@ -122,7 +124,7 @@ export const Products: FC = () => {
         ))}
       </div>
 
-      <div className="flex justify-center w-full mx-auto relative z-20 md:pb-[5vw] md:pt-[10vw] py-[10vw]">
+      <div className="flex justify-center w-full mx-auto relative z-20 md:pb-[5vw] md:pt-[6vw] py-[10vw]">
         <button onClick={() => lenis?.scrollTo("#")} className="btn">
           See All
         </button>

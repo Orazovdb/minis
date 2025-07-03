@@ -7,20 +7,18 @@ import { useEffect } from "react";
 import { useBurgerStore } from "./store/use-burger";
 
 function App() {
-  const { setLoading, isLoading } = useLoaderStore((state) => state);
+  const loading = useLoaderStore((state) => state.isLoading);
   const isOpen = useBurgerStore((state) => state.isOpen);
   const lenis = useLenis();
 
   useEffect(() => {
-    if (isOpen || isLoading) lenis?.stop();
+    if (isOpen || loading) lenis?.stop();
     else lenis?.start();
-  }, [isOpen, isLoading]);
+  }, [isOpen, loading]);
 
   useEffect(() => {
-    setLoading(true);
-
-    return () => setLoading(false);
-  }, []);
+    lenis?.scrollTo(0, { duration: 0, lerp: 0 });
+  }, [loading]);
 
   return (
     <ReactLenis
@@ -31,7 +29,7 @@ function App() {
       }}
     >
       <div>
-        {isLoading && <Loader />}
+        <Loader />
         <Burger />
         <Header />
         <main className="flex-auto overflow-hidden">

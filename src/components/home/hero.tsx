@@ -3,12 +3,19 @@ import { useRef, type FC } from "react";
 import gsap from "gsap";
 import { animatedItems, type AnimationDirection } from "../../constantas";
 import { useLoaderStore } from "../../store/use-loader";
+import { useLangStore } from "../../store/use-lang";
 
 export const Hero: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const decorItemsRef = useRef<(HTMLImageElement | null)[]>([]);
   const animatedItemsRef = useRef<(HTMLImageElement | null)[]>([]);
   const loading = useLoaderStore((state) => state.isLoading);
+
+  const lang = useLangStore((state) => state.lang);
+
+  const firstTitle = lang === "en" ? "Mini's dragee" : "Mini’s draJE";
+  const secondTitle =
+    lang === "en" ? "Unrepeatable taste" : "TEKRARLANAMAZ TAT";
 
   useGSAP(
     () => {
@@ -97,7 +104,7 @@ export const Hero: FC = () => {
             className="overflow-hidden rotate-[5deg] will-change-transform"
           >
             <h1 className="inline-block ligth-text text-light-brown-block z-20 overflow-hidden">
-              Mini's dragee
+              {firstTitle}
             </h1>
           </div>
         </div>
@@ -108,7 +115,7 @@ export const Hero: FC = () => {
             className="overflow-hidden rotate-[2deg] will-change-transform"
           >
             <h1 className="inline-block dark-text text-dark-brown-block overflow-hidden">
-              Unrepeatable taste
+              {secondTitle}
             </h1>
           </div>
         </div>

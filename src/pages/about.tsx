@@ -8,20 +8,24 @@ import { useEffect, useRef } from "react";
 import { useLoaderStore } from "../store/use-loader";
 import { useRedirectStore } from "../store/use-redirect";
 import { useNavigate } from "react-router-dom";
+import { useTranslate } from "../lib/utils";
 
 const cards = [
   {
-    title: "Recapture <br /> your youth",
+    title: "Unleash Your <br /> Imagination",
+    titleTr: "Hayal Gücünü <br /> Serbest Bırak",
     className: "md:absolute left-0 rotate-0 md:-rotate-[8deg] top-[6vw]",
     num: "01",
   },
   {
-    title: "Break some rules",
+    title: "Inspiration through <br /> Taste",
+    titleTr: "Tatla Gelen İlham",
     className: "md:absolute md:pos-x rotate-0 top-[3vw] md:rotate-[6deg]",
     num: "02",
   },
   {
-    title: "Rediscover what <br /> you’re capable of",
+    title: "Push the Limits with <br /> Your Taste",
+    titleTr: "Sınırları Tadınla <br /> Zorla",
     className: "md:absolute right-0 rotate-0 top-[8vw]",
     num: "03",
   },
@@ -102,6 +106,18 @@ export default function About() {
     { scope: containerRef }
   );
 
+  const title = useTranslate("Our Story Begins", "Bizim Hikayemiz");
+
+  const text1 = useTranslate(
+    "Mini’s started with a simple idea: to bring joy through color, taste, and playfulness. We believed that candy could be more than just a treat — it could be an experience, a spark of happiness, a tiny celebration in every bite. Inspired by the laughter of children and the wonder of childhood, we created a world where sweets are fun, vibrant, and made to share.",
+    "Mini's basit bir fikirle başladı: renk, tat ve eğlence yoluyla neşe getirmek. Şekerin bir ikramdan daha fazlası olabileceğine inandık - bir deneyim, bir mutluluk kıvılcımı, her ısırıkta küçük bir kutlama olabilirdi. Çocukların kahkahalarından ve çocukluğun mucizelerinden ilham alarak, şekerlemelerin eğlenceli, canlı ve paylaşmak için üretildiği bir dünya yarattık."
+  );
+
+  const text2 = useTranslate(
+    "From our first colorful chocolate dragee to our full collection of playful snacks, Mini’s has always been about one thing: making life a little sweeter, one smile at a time.",
+    "İlk renkli çikolatalı drajemizden tüm eğlenceli atıştırmalık koleksiyonumuza kadar Mini's her zaman tek bir şeyle ilgiliydi: hayatı biraz daha tatlı kılmak, her seferinde bir gülümseme."
+  );
+
   return (
     <section ref={containerRef}>
       <div className="relative h-[50vw] flex justify-center items-center">
@@ -126,30 +142,24 @@ export default function About() {
           id="catalog-title"
           className="text-[#865720] font-bold text-[10vw] md:text-[5vw] md:mb-[1.25vw] mb-[5vw]"
         >
-          Our Story Begins
+          {title}
         </h3>
         <p
           id="catalog-text"
           className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-[0.8vw] mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]"
         >
-          Our brand celebrates staying young. If there is anything adventurous,
-          unconventional, or excitingly unexpected we’re down. And while
-          e-mails, taxes, and mortgages must be sent, let us not forget the most
-          important thing to send… “it.” Our brand is a testament to the power
-          of laughter, the thrill of adrenaline, and the camaraderie gained
-          through shared mayhem and mischief.
+          {text1}
         </p>
 
         <p className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]">
-          SPYLT is the kid who pushed the limits who got their life together,
-          settled down without settling, and never forgot the essence of what
-          made them THEM. #MilktheMostOutOfLife
+          {text2}
         </p>
 
         <div className="relative flex flex-col md:flex-row items-center justify-center w-[58vw] gap-[10vw] md:h-[30vw] h-full">
           {cards.map((item, i) => (
             <CatalogCard
               {...item}
+              title={useTranslate(item.title, item.titleTr)}
               key={i}
               className={`catalog-card will-change-transform ${item.className}`}
             />

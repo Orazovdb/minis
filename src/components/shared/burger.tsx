@@ -6,18 +6,27 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useRedirectStore } from "../../store/use-redirect";
 import { useLenis } from "lenis/react";
+import { useTranslate } from "../../lib/utils";
 
 const navData = [
-  { name: "about", link: "/about", id: "" },
-  { name: "products", link: "/", id: "#products", products: true },
-  { name: "contacts", link: "", id: "#footer" },
+  { name: "about", trName: "hakkimizda", link: "/about", id: "" },
+  {
+    name: "products",
+    trName: "ürünlerimiz",
+    link: "/",
+    id: "#products",
+    products: true,
+  },
+  { name: "contacts", trName: "İletişim", link: "", id: "#footer" },
 ];
 
 export const Burger = () => {
   const { isOpen, setIsOpen } = useBurgerStore((state) => state);
   const [hovered, setHovered] = useState<number | null>(null);
-  const navigate = useNavigate();
   const lenis = useLenis();
+
+  const [activePhoto, setActivePhoto] = useState(0);
+  const navigate = useNavigate();
   const setSectionScroll = useRedirectStore((state) => state.setSectionScroll);
 
   const setRedirect = useRedirectStore((state) => state.setRedirect);
@@ -63,6 +72,15 @@ export const Burger = () => {
     setIsOpen(false);
   };
 
+  const onHover = (id: number) => {
+    setHovered(id);
+    setActivePhoto(id);
+  };
+
+  const onLeavae = (id: number | null) => {
+    setHovered(id);
+  };
+
   return (
     <div
       id="menu"
@@ -74,19 +92,19 @@ export const Burger = () => {
             id="navigation"
             className="flex flex-[0_0_50%] items-center flex-col justify-center h-full"
           >
-            {navData.map(({ name, link, id }, i) => (
+            {navData.map(({ name, trName, link, id }, i) => (
               <button
                 key={name}
                 onClick={() => onLinkClick(link, id)}
-                onMouseEnter={() => setHovered(i)}
-                onMouseLeave={() => setHovered(null)}
+                onMouseEnter={() => onHover(i)}
+                onMouseLeave={() => onLeavae(null)}
                 className={clsx(
-                  "uppercase text-[#553124] transition-opacity cursor-pointer duration-200",
-                  hovered !== null && hovered !== i && "opacity-50",
+                  "uppercase text-[#553124] transition-opacity cursor-pointer duration-500",
+                  hovered !== null && hovered !== i && "opacity-20",
                   "md:text-[7vw] text-[17vw]"
                 )}
               >
-                {name}
+                {useTranslate(name, trName)}
               </button>
             ))}
 
@@ -108,8 +126,22 @@ export const Burger = () => {
             </div>
           </div>
 
-          <div id="burger-img" className="flex-auto md:block hidden size-full">
-            <img src="/about.png" alt="" className="size-full object-cover" />
+          <div
+            id="burger-img"
+            className="flex-auto relative md:block hidden size-full overflow-hidden"
+          >
+            {Array.from({ length: 3 }).map((_, i) => (
+              <img
+                key={i}
+                src={`/burger/${i}.png`}
+                className={clsx(
+                  "size-full object-cover transition-all duration-[.7s] absolute top-0 left-0",
+                  activePhoto === i
+                    ? "opacity-100 z-20 scale-100"
+                    : "opacity-0 z-10 scale-105"
+                )}
+              />
+            ))}
           </div>
         </div>
       </div>

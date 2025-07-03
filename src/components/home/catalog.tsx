@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import { CatalogCard } from "../shared/catalog-card";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { useTranslate } from "../../lib/utils";
 
 const cards = [
   {
@@ -65,6 +66,15 @@ export const Catalog = () => {
     });
   }, {});
 
+  const title = useTranslate(
+    "Unwrap the World of Mini’s!",
+    "Mini’s’le Renkli Bir Yolculuğa Çık!"
+  );
+  const text = useTranslate(
+    "Ready to explore the colorful world of Mini’s? From fun chocolate dragees to playful umbrella treats and refreshing cones, our full range of sweet creations is just a click away. Dive into our catalog and discover your next favorite flavor — made with joy for candy lovers of all ages!",
+    "Mini’s dünyasını daha yakından tanımaya hazır mısınız? Renkli drajelerden lezzetli dondurmalara, eğlenceli şemsiyelerden minik sürprizlere kadar tüm ürün çeşitlerimiz bu katalogda sizi bekliyor. Her yaştan tatlı sever için özenle hazırlanmış Mini’s koleksiyonuna göz atın, en sevdiğiniz tatla tanışın!"
+  );
+
   return (
     <section
       id="catalog"
@@ -74,17 +84,13 @@ export const Catalog = () => {
         id="catalog-title"
         className="text-[#865720] font-bold text-[10vw] md:text-[5vw] md:mb-[1.25vw] mb-[5vw]"
       >
-        Our Story Begins
+        {title}{" "}
       </h3>
       <p
         id="catalog-text"
         className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]"
       >
-        Minis was born from a simple yet powerful idea: to create miniature
-        delights that bring joy. Founded by a team of food enthusiasts, we've
-        dedicated ourselves to crafting bite-sized treats that not only satisfy
-        your taste buds but also brighten your day. Our journey began with the
-        vision of redefining snacking.
+        {text}{" "}
       </p>
 
       <div className="relative flex flex-col md:flex-row items-center justify-center w-[58vw] gap-[10vw] md:h-[20vw] h-full">

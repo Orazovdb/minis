@@ -3,12 +3,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLangStore } from "../../store/use-lang";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 export const Words: FC = () => {
   const containerRef = useRef(null);
   const minisTextRef = useRef(null);
+  const lang = useLangStore((state) => state.lang);
 
   useGSAP(
     () => {
@@ -64,15 +66,27 @@ export const Words: FC = () => {
       ref={containerRef}
       className="bg-dark-brown relative section md:py-[8vw] py-[20vw]"
     >
-      <h2 className="text-[#FAEADE] words md:text-[10vw] px-[20vw] md:px-0 text-[12vw] uppercase leading-[105%] track text-center">
-        Shu yere gowja
-        <br />
-        Moshny gowja soz
-        <br />
-        Yazmaly tipo slogan yaly
-        <br />
-        birzat bolmaly tapyndaa
-      </h2>
+      {lang === "en" ? (
+        <h2 className="text-[#FAEADE] words md:text-[10vw] px-[20vw] md:px-0 text-[12vw] uppercase leading-[105%] track text-center">
+          Not just candy
+          <br />
+          it’s a burst of color,
+          <br />
+          a spark of imagination,
+          <br />
+          and a moment of magic
+        </h2>
+      ) : (
+        <h2 className="text-[#FAEADE] words md:text-[10vw] px-[20vw] md:px-0 text-[12vw] uppercase leading-[105%] track text-center">
+          Sadece şeker değil
+          <br />
+          bir renk patlaması,
+          <br />
+          hayal gücü kıvılcımı
+          <br />
+          and a moment of magic
+        </h2>
+      )}
 
       <div className="pos-x md:top-[25vw] top-[65vw]">
         <div

@@ -1,6 +1,13 @@
 import type { FC } from "react";
+import { useTranslate } from "../../lib/utils";
 
 export const More: FC = () => {
+  const title = useTranslate("Our Story Begins", "Bizim Hikayemiz");
+  const text = useTranslate(
+    "Mini’s began with a simple idea: to turn small treats into big moments of joy. Inspired by the magic of childhood and the power of colorful imagination, we set out to create sweets that do more than just taste good — they make you smile.",
+    "Mini's basit bir fikirle başladı: küçük ikramları büyük neşe anlarına dönüştürmek. Çocukluğun büyüsünden ve renkli hayal gücünün gücünden ilham alarak, tadı güzel olmanın ötesinde sizi gülümseten tatlılar yaratmak için yola çıktık."
+  );
+
   return (
     <div className="bg-[url('/background.svg')] relative pt-[20vw] bg-no-repeat bg-cover h-[150vh] w-full">
       <div className="px-[10vw] flex flex-col justify-between">
@@ -10,17 +17,13 @@ export const More: FC = () => {
             id=""
             className="text-[#865720] font-bold text-[10vw] md:text-[2vw] md:mb-[0.7vw] mb-[5vw]"
           >
-            Our Story Begins
+            {title}{" "}
           </h3>
           <p
             id=""
             className="text-[#523122] mx-auto proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[0.93vw] text-[3vw] md:leading-[100%] leading-[125%]"
           >
-            Minis was born from a simple yet powerful idea: to create miniature
-            delights that bring joy. Founded by a team of food enthusiasts,
-            we've dedicated ourselves to crafting bite-sized treats that not
-            only satisfy your taste buds but also brighten your day. Our journey
-            began with the vision of redefining snacking.
+            {text}
           </p>
         </div>
       </div>

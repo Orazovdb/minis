@@ -84,21 +84,29 @@ export const Footer: FC<Props> = ({ className }) => {
               alt="logo"
               className="md:h-[2vw] h-[10vw] object-left w-auto object-contain"
             />
-            <p className="text-16 proxima">
-              We'd love to hear from you. Get in touch with us, and our friendly
-              team will be here to assist you. Your thoughts matter, and we're
-              here to ensure your experience with us is as delightful as our
-              snacks. Contact us today!
-            </p>
+            <div>
+              <p className="text-16 proxima mb-[1.5vw]">
+                We'd love to hear from you. Get in touch with us, and our
+                friendly team will be here to assist you. Your thoughts matter,
+                and we're here to ensure your experience with us is as
+                delightful as our snacks. Contact us today!
+              </p>
+
+              <address className="text-16 proxima mb-[2.24vw]">
+                Address: Jaý 8, k.Telekeçi, etrap Ak bugdaý, Anew, Türkmenistan
+              </address>
+            </div>
           </div>
 
           <div className="md:flex-[0_0_20vw] flex-[0_0_30vw]">
-            <address className="text-16 proxima mb-[2.24vw]">
-              Address: Jaý 8, k.Telekeçi, etrap Ak bugdaý, Anew, Türkmenistan
-            </address>
             <input
               type="text"
               placeholder="Enter your email"
+              className="border-b md:text-[1.56vw] mb-[1vw] md:placeholder:text-[1.56vw] placeholder:text-[3vw] text-[3vw] focus:outline-0 md:h-[3.4vw] h-[8vw] w-full"
+            />
+            <input
+              type="text"
+              placeholder="Your message"
               className="border-b md:text-[1.56vw] md:placeholder:text-[1.56vw] placeholder:text-[3vw] text-[3vw] focus:outline-0 md:h-[3.4vw] h-[8vw] w-full"
             />
           </div>

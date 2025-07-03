@@ -1,14 +1,36 @@
 import clsx from "clsx";
-import type { FC } from "react";
+import { useCallback, type FC } from "react";
 import { useBurgerStore } from "../../store/use-burger";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLangStore } from "../../store/use-lang";
 
 interface Props {
   className?: string;
 }
 
+const langs = [
+  {
+    lang: "en",
+  },
+  {
+    lang: "tr",
+  },
+];
+
 export const Header: FC<Props> = ({ className }) => {
+  const navigate = useNavigate();
+
   const { isOpen, setIsOpen } = useBurgerStore((state) => state);
+  const activeLang = useLangStore((state) => state.lang);
+  const setLang = useLangStore((state) => state.setLang);
+
+  const onLang = useCallback(
+    (lang: string) => {
+      setLang(lang);
+      navigate(0);
+    },
+    [activeLang]
+  );
 
   return (
     <header
@@ -29,7 +51,7 @@ export const Header: FC<Props> = ({ className }) => {
       <div
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          "md:h-[2.08vw] h-[6.24vw] -ml-[4.5vw] relative transition-all md:w-[3.64vw] z-[100] w-[10.92vw] flex flex-col justify-center items-center gap-[0.4vw] cursor-pointer px-4 overflow-hidden",
+          "md:h-[2.08vw] h-[6.24vw] -mr-[1.3vw] relative transition-all md:w-[3.64vw] z-[100] w-[10.92vw] flex flex-col justify-center items-center gap-[0.4vw] cursor-pointer px-4 overflow-hidden",
           isOpen && "md:bg-white rounded-full !size-[3.5vw]"
         )}
       >
@@ -47,7 +69,20 @@ export const Header: FC<Props> = ({ className }) => {
         />
       </div>
 
-      <div className="md:block hidden" />
+      <div className="flex items-center uppercase md:gap-[1vw] gap-[2vw]">
+        {langs.map(({ lang }) => (
+          <button
+            key={lang}
+            onClick={() => onLang(lang)}
+            className={clsx(
+              "text-[#523122] uppercase transition-colors rounded-full md:p-[0.5vw] p-[1vw] md:text-[1.5vw] text-[6vw] cursor-pointer",
+              lang === activeLang && "bg-[#E3A458]"
+            )}
+          >
+            {lang}
+          </button>
+        ))}
+      </div>
     </header>
   );
 };
