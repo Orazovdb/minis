@@ -84,7 +84,7 @@ export const Words: FC = () => {
           <br />
           hayal gücü kıvılcımı
           <br />
-          and a moment of magic
+          ve bir sihir anı
         </h2>
       )}
 

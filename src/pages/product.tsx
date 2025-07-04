@@ -55,8 +55,8 @@ export default function Product() {
     }
 
     if (redirectSection === "#products") {
-      navigate("/");
       setRedirect("#products");
+      navigate("/");
     }
   }, [redirectSection, lenis]);
 
@@ -64,14 +64,16 @@ export default function Product() {
     () => {
       const titleTl = gsap.timeline({ delay: isLoading ? 2.7 : 0 });
 
-      const { chars } = new SplitText("#title", {
-        type: "chars, lines",
-        mask: "lines",
-      });
+      document.fonts.ready.then(() => {
+        const { chars } = new SplitText("#title", {
+          type: "chars, lines",
+          mask: "lines",
+        });
 
-      titleTl.from(chars, {
-        y: "100%",
-        stagger: 0.05,
+        titleTl.from(chars, {
+          y: "100%",
+          stagger: 0.05,
+        });
       });
 
       titleTl.from("#title-card", {

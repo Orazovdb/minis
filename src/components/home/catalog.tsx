@@ -31,20 +31,22 @@ gsap.registerPlugin(SplitText);
 
 export const Catalog = () => {
   useGSAP(() => {
-    const { chars } = new SplitText("#catalog-title", {
-      type: "chars, lines",
-      mask: "lines",
-    });
+    document.fonts.ready.then(() => {
+      const { chars } = new SplitText("#catalog-title", {
+        type: "chars, lines",
+        mask: "lines",
+      });
 
-    gsap.from(chars, {
-      y: 200,
-      duration: 0.3,
-      scrollTrigger: {
-        trigger: chars,
-        start: "top 100%",
-        end: "bottom 20%",
-      },
-      stagger: 0.05,
+      gsap.from(chars, {
+        y: 200,
+        duration: 0.3,
+        scrollTrigger: {
+          trigger: chars,
+          start: "top 100%",
+          end: "bottom 20%",
+        },
+        stagger: 0.05,
+      });
     });
 
     gsap.from(".catalog-card", {
@@ -88,9 +90,9 @@ export const Catalog = () => {
       </h3>
       <p
         id="catalog-text"
-        className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]"
+        className="text-[#523122] proxima will-change-transform md:w-[50vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1.2vw] text-[3vw] md:leading-[100%] leading-[125%]"
       >
-        {text}{" "}
+        {text}
       </p>
 
       <div className="relative flex flex-col md:flex-row items-center justify-center w-[58vw] gap-[10vw] md:h-[20vw] h-full">

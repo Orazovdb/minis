@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslate } from "../../lib/utils";
 
 interface Props {
   className?: string;
@@ -33,6 +34,12 @@ export const Footer: FC<Props> = ({ className }) => {
       });
     },
     { scope: footerRef }
+  );
+
+  const title = useTranslate("CONTACTS", "ILETIŞIM");
+  const address = useTranslate(
+    "Address: 8 house, Telekechiler street, Anev city, Ak bugday district, Ahal region, Turkmenistan.",
+    "Adres: Türkmenistan, Ahal ili, Ak bugday ilçesi, Anev şehri, Telekeçiler caddesi 8-inci ev."
   );
 
   return (
@@ -77,7 +84,7 @@ export const Footer: FC<Props> = ({ className }) => {
       </div>
 
       <div className="px-[3.333vw] mt-[3.333vw]">
-        <div className="flex justify-between items-end mb-[8.33vw] text-[#FAEADE]">
+        <div className="flex justify-between md:items-start items-center mb-[8.33vw] text-[#FAEADE]">
           <div className="flex flex-col md:flex-row gap-[3.33vw] md:flex-[0_0_26vw] flex-[0_0_40vw] justify-end">
             <img
               src="/logo.svg"
@@ -85,20 +92,24 @@ export const Footer: FC<Props> = ({ className }) => {
               className="md:h-[2vw] h-[10vw] object-left w-auto object-contain"
             />
             <div>
-              <p className="text-16 proxima mb-[1.5vw]">
-                We'd love to hear from you. Get in touch with us, and our
-                friendly team will be here to assist you. Your thoughts matter,
-                and we're here to ensure your experience with us is as
-                delightful as our snacks. Contact us today!
-              </p>
+              <h4 className="text-[5vw] md:text-[1vw] mb-[1.5vw]">{title}</h4>
 
-              <address className="text-16 proxima mb-[2.24vw]">
-                Address: Jaý 8, k.Telekeçi, etrap Ak bugdaý, Anew, Türkmenistan
+              <span className="flex items-center gap-[1vw] text-[3.5vw] md:text-[1vw] mb-[0.5vw] proxima">
+                <img src="/phone.svg" alt="" />
+                +993 12 59 61 59
+              </span>
+              <span className="flex items-center gap-[1vw] text-[3.5vw] md:text-[1vw] mb-[1.5vw] proxima">
+                <img src="/phone.svg" alt="" />
+                +993 65 80 59 80
+              </span>
+
+              <address className="text-[3vw] md:text-[0.9vw] proxima mb-[2.24vw]">
+                {address}
               </address>
             </div>
           </div>
 
-          <div className="md:flex-[0_0_20vw] flex-[0_0_30vw]">
+          <div className="md:flex-[0_0_20vw] flex-[0_0_30vw] relative">
             <input
               type="text"
               placeholder="Enter your email"
@@ -107,8 +118,14 @@ export const Footer: FC<Props> = ({ className }) => {
             <input
               type="text"
               placeholder="Your message"
-              className="border-b md:text-[1.56vw] md:placeholder:text-[1.56vw] placeholder:text-[3vw] text-[3vw] focus:outline-0 md:h-[3.4vw] h-[8vw] w-full"
+              className="border-b bg-[url('/arrow.svg')] bg-size-[3vw] md:bg-size-[1.3vw] bg-no-repeat bg-right md:text-[1.56vw] md:placeholder:text-[1.56vw] placeholder:text-[3vw] text-[3vw] focus:outline-0 md:h-[3.4vw] h-[8vw] w-full"
             />
+
+            {/* <img
+              src="/arrow.svg"
+              alt=""
+              className="absolute bottom-[6.5vw] right-[0.3vw] size-[1vw]"
+            /> */}
           </div>
         </div>
 

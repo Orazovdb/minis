@@ -15,13 +15,13 @@ export const More: FC = () => {
         <div className="text-center rounded-[5vw] p-[1vw] bg-[#FDEBD2] outline-[0.5vw] outline-[#E8DDCA]">
           <h3
             id=""
-            className="text-[#865720] font-bold text-[10vw] md:text-[2vw] md:mb-[0.7vw] mb-[5vw]"
+            className="text-[#865720] font-bold text-[10vw] md:text-[4vw] md:mb-[0.7vw] mb-[5vw]"
           >
-            {title}{" "}
+            {title}
           </h3>
           <p
             id=""
-            className="text-[#523122] mx-auto proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[0.93vw] text-[3vw] md:leading-[100%] leading-[125%]"
+            className="text-[#523122] mx-auto proxima will-change-transform md:w-[55vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1.2vw] text-[3vw] md:leading-[100%] leading-[125%]"
           >
             {text}
           </p>

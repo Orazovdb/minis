@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Footer, Header, Loader } from "./components/layout";
 import ReactLenis, { useLenis } from "lenis/react";
 import { Burger } from "./components/shared";
@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     lenis?.scrollTo(0, { duration: 0, lerp: 0 });
-  }, [loading]);
+  }, []);
 
   return (
     <ReactLenis

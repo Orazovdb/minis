@@ -54,8 +54,8 @@ export default function About() {
     }
 
     if (redirectSection === "#products") {
-      navigate("/");
       setRedirect("#products");
+      navigate("/");
     }
   }, [redirectSection, lenis]);
 
@@ -146,12 +146,12 @@ export default function About() {
         </h3>
         <p
           id="catalog-text"
-          className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-[0.8vw] mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]"
+          className="text-[#523122] proxima will-change-transform md:w-[55vw] md:mb-[0.8vw] mb-[10vw] w-[80vw] md:text-[1.2vw] text-[3vw] md:leading-[100%] leading-[125%]"
         >
           {text1}
         </p>
 
-        <p className="text-[#523122] proxima will-change-transform md:w-[46vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1vw] text-[3vw] md:leading-[100%] leading-[125%]">
+        <p className="text-[#523122] proxima will-change-transform md:w-[55vw] md:mb-0 mb-[10vw] w-[80vw] md:text-[1.2vw] text-[3vw] md:leading-[100%] leading-[125%]">
           {text2}
         </p>
 
