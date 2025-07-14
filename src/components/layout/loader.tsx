@@ -78,7 +78,7 @@ export const Loader = () => {
       )}
     >
       <img
-        src="/logo.svg"
+        src="/loading_logo.svg"
         alt="Logo"
         className="mb-8 md:size-[15vw] size-[30vw]"
       />

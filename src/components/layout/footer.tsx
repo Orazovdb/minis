@@ -86,11 +86,6 @@ export const Footer: FC<Props> = ({ className }) => {
 			<div className="px-[3.333vw] mt-[3.333vw]">
 				<div className="flex justify-between md:items-start items-center mb-[8.33vw] text-[#FAEADE]">
 					<div className="flex flex-col md:flex-row gap-[3.33vw] md:flex-[0_0_26vw] flex-[0_0_40vw] justify-end">
-						<img
-							src="/minis_favicon.svg"
-							alt="logo"
-							className="md:h-[2vw] h-[10vw] object-left w-auto object-contain"
-						/>
 						<div>
 							<h4 className="text-[5vw] md:text-[1vw] mb-[1.5vw]">{title}</h4>
 
@@ -98,7 +93,7 @@ export const Footer: FC<Props> = ({ className }) => {
 								<img src="/phone.svg" alt="" />
 								+993 12 59 61 59
 							</span>
-							<span className="flex items-center gap-[1vw] text-[3.5vw] md:text-[1vw] mb-[1.5vw] proxima">
+							<span className="flex items-center gap-[1vw] text-[3.5vw] md:text-[1vw] mb-[1.5vw] proxima whitespace-nowrap">
 								<img src="/phone.svg" alt="" />
 								<img src="/whatsup.svg" alt="" />
 								+993 65 80 59 80
